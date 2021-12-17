@@ -10,6 +10,7 @@ interface Props {}
 // Component ---------------------------------------------------------------------
 const SearchBar: React.FC<Props> = () => {
   const router = useRouter();
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       router.push(`/user/${e.currentTarget.value}`);

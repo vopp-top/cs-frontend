@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaTwitch } from "react-icons/fa";
@@ -15,33 +16,24 @@ import { Emote, Streamer, User } from "../../types/types";
 
 interface Props {}
 
-// fetch streamer
-const getData = async (user: any): Promise<Streamer> => {
-  const res = await fetch(`/__streamers__/${user}/index.json`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
-
-  if (!res) return res;
-  return res.json();
-};
-
 // Component ---------------------------------------------------------------------
-const Profile: React.FC<Props> = () => {
+const Profile: NextPage<Props> = () => {
   const { username } = useRouter().query;
-  const [user, setUser] = useState<Streamer | null>(null);
+  const [user, setUser] = useState<Streamer | undefined | null>(undefined);
   const [users, setUsers] = useState<User[]>([]);
   const [emotes, setEmotes] = useState<Emote[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // fetch streamer
   const fetchData = async () => {
+    setUser(undefined);
+    setLoading(true);
+
     const userRes = await axios
       .get(`/__streamers__/${username}/index.json`)
       .catch((err) => console.log(err));
-
     if (userRes) setUser(userRes.data);
+    else return setUser(null);
 
     const usersRes = await axios
       .get(`/__streamers__/${username}/top_users_0.json`)
@@ -54,6 +46,8 @@ const Profile: React.FC<Props> = () => {
       .catch((err) => console.log(err));
 
     if (emotesRes) setEmotes(emotesRes.data.emotes);
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -61,21 +55,28 @@ const Profile: React.FC<Props> = () => {
     fetchData();
   }, [username]);
 
-  if (!user || users.length === 0 || emotes.length === 0)
-    return <Loader type="TailSpin" />;
+  if (user === undefined && loading) return <Loader type="TailSpin" />;
+  if (user === null)
+    return (
+      <Text fontWeight={500} fontSize={"md"} textAlign={"center"}>
+        Not found
+        <img src="https://cdn.betterttv.net/emote/618a7b0c1f8ff7628e6d1d2d/1x" />
+      </Text>
+    );
 
+  // @ts-nocheck
   return (
     <Wrapper>
       <HeadingContainer>
-        <Heading>{user.name}</Heading>
+        <Heading>{user!.name}</Heading>
         <Info>
-          <a target={"_blank"} href={`https://www.twitch.tv/${user.name}`}>
-            <Avatar url={user.avatar} size={160} />
+          <a target={"_blank"} href={`https://www.twitch.tv/${user!.name}`}>
+            <Avatar url={user!.avatar} size={160} />
           </a>
           <Socials>
             <Icon mr={2} as={FaTwitch} size={18} textColor={"main"} />
-            <a target="_blank" href={`https://www.twitch.tv/${user.name}`}>
-              <Text fontSize={"sm"}>twitch.tv/{user.name}</Text>
+            <a target="_blank" href={`https://www.twitch.tv/${user!.name}`}>
+              <Text fontSize={"sm"}>twitch.tv/{user!.name}</Text>
             </a>
           </Socials>
         </Info>

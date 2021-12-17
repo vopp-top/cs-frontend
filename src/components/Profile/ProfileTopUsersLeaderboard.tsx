@@ -10,7 +10,7 @@ interface Props {
 
 // Component ---------------------------------------------------------------------
 const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
-  const data = useMemo(() => users, []);
+  const data = useMemo(() => users, [users]);
 
   const columns = useMemo(
     () => [

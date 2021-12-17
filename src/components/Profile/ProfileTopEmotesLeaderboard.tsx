@@ -11,7 +11,7 @@ interface Props {
 
 // Component ---------------------------------------------------------------------
 const ProfileTopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
-  const data = useMemo(() => emotes, []);
+  const data = useMemo(() => emotes, [emotes]);
 
   const columns = useMemo(
     () => [
