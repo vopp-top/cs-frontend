@@ -71,14 +71,16 @@ export default Leaderboard;
 
 // Styled ------------------------------------------------------------------------
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: block;
   max-width: 100%;
 `;
 
-export const Table = styled.table`
+const Table = styled.table`
   width: 100%;
   border-spacing: 0;
+  /* table-layout: fixed; */
+  border-collapse: collapse;
 
   &.tableWrap {
     display: block;
@@ -99,15 +101,15 @@ export const Table = styled.table`
   }
 `;
 
-export const TableHead = styled.thead``;
+const TableHead = styled.thead``;
 
-export const TableRow = styled.tr`
+const TableRow = styled.tr`
   max-height: 65px;
   height: 65px;
   color: white;
 `;
 
-export const TableBody = styled.tbody`
+const TableBody = styled.tbody`
   max-width: fit-content;
   tr {
     &:nth-child(odd):not(thead) {
@@ -116,10 +118,11 @@ export const TableBody = styled.tbody`
   }
 `;
 
-export const TableData = styled.td`
+const TableData = styled.td`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  max-width: fit-content;
 
   vertical-align: middle;
 
@@ -129,7 +132,7 @@ export const TableData = styled.td`
   }
 `;
 
-export const TableHeader = styled.th`
+const TableHeader = styled.th`
   color: ${({ theme }) => theme.colors.main};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 400;

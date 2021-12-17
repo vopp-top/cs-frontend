@@ -1,13 +1,13 @@
 import axios from "axios";
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaTwitch } from "react-icons/fa";
-import Loader from "react-loader-spinner";
 import styled from "styled-components";
 import Avatar from "../../components/Avatar";
 import Heading from "../../components/Heading";
 import Icon from "../../components/Icon";
+import Loader from "../../components/Loader";
 import ProfileTopEmotesLeaderboard from "../../components/Profile/ProfileTopEmotesLeaderboard";
 import TopUsersLeaderboard from "../../components/Profile/ProfileTopUsersLeaderboard";
 import Text from "../../components/Text";
@@ -55,7 +55,7 @@ const Profile: NextPage<Props> = () => {
     fetchData();
   }, [username]);
 
-  if (user === undefined && loading) return <Loader type="TailSpin" />;
+  if (user === undefined && loading) return <Loader />;
   if (user === null)
     return (
       <Text fontWeight={500} fontSize={"md"} textAlign={"center"}>
