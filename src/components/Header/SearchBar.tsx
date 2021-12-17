@@ -13,7 +13,7 @@ const SearchBar: React.FC<Props> = () => {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      router.push(`/user/${e.currentTarget.value}`);
+      router.push(`/streamer/${e.currentTarget.value}`);
       e.currentTarget.value = "";
     }
   };

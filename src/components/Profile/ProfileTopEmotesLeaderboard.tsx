@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Emote } from "../../types/types";
 import Leaderboard from "../Leaderboard/Leaderboard";

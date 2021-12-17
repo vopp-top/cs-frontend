@@ -101,7 +101,9 @@ const Table = styled.table`
   }
 `;
 
-const TableHead = styled.thead``;
+const TableHead = styled.thead`
+  text-align: left;
+`;
 
 const TableRow = styled.tr`
   max-height: 65px;

@@ -22,32 +22,26 @@ const Profile: NextPage<Props> = () => {
   const [user, setUser] = useState<Streamer | undefined | null>(undefined);
   const [users, setUsers] = useState<User[]>([]);
   const [emotes, setEmotes] = useState<Emote[]>([]);
-  const [loading, setLoading] = useState(true);
 
   // fetch streamer
   const fetchData = async () => {
     setUser(undefined);
-    setLoading(true);
 
     const userRes = await axios
       .get(`/__streamers__/${username}/index.json`)
       .catch((err) => console.log(err));
-    if (userRes) setUser(userRes.data);
-    else return setUser(null);
+    if (!userRes) return setUser(null);
 
-    const usersRes = await axios
-      .get(`/__streamers__/${username}/top_users_0.json`)
-      .catch((err) => console.log(err));
+    const usersRes = await axios.get(
+      `/__streamers__/${username}/top_users_0.json`
+    );
+    const emotesRes = await axios.get(
+      `/__streamers__/${username}/top_emotes_0.json`
+    );
 
-    if (usersRes) setUsers(usersRes.data.users);
-
-    const emotesRes = await axios
-      .get(`/__streamers__/${username}/top_emotes_0.json`)
-      .catch((err) => console.log(err));
-
-    if (emotesRes) setEmotes(emotesRes.data.emotes);
-
-    setLoading(false);
+    setUsers(usersRes.data.users);
+    setEmotes(emotesRes.data.emotes);
+    setUser(userRes.data);
   };
 
   useEffect(() => {
@@ -55,7 +49,7 @@ const Profile: NextPage<Props> = () => {
     fetchData();
   }, [username]);
 
-  if (user === undefined && loading) return <Loader />;
+  if (user === undefined) return <Loader />;
   if (user === null)
     return (
       <Text fontWeight={500} fontSize={"md"} textAlign={"center"}>
@@ -64,7 +58,6 @@ const Profile: NextPage<Props> = () => {
       </Text>
     );
 
-  // @ts-nocheck
   return (
     <Wrapper>
       <HeadingContainer>
