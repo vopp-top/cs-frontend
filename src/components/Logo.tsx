@@ -1,31 +1,28 @@
+import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
-import Logo from "../Logo";
-import Text from "../Text";
-import SearchBar from "./SearchBar";
-import { FaCaretDown } from "react-icons/fa";
-import NavBar from "./NavBar";
+import Text from "./Text";
 // Types -------------------------------------------------------------------------
 
 interface Props {}
 
 // Component ---------------------------------------------------------------------
-const Header: React.FC<Props> = () => {
+const Logo: React.FC<Props> = () => {
   return (
     <Wrapper>
-      <Logo />
-      <SearchBar />
-      <NavBar />
+      <Image src="/logo.svg" width="50" height="50" />
+      <Text ml={2} fontSize={"xl"} fontWeight={500}>
+        chat.vopp.top
+      </Text>
     </Wrapper>
   );
 };
 
-export default Header;
+export default Logo;
 
 // Styled ------------------------------------------------------------------------
 
 const Wrapper = styled.div`
-  padding: 50px 0;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 `;

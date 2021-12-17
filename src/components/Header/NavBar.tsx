@@ -1,31 +1,34 @@
 import React from "react";
-import styled from "styled-components";
-import Logo from "../Logo";
-import Text from "../Text";
-import SearchBar from "./SearchBar";
 import { FaCaretDown } from "react-icons/fa";
-import NavBar from "./NavBar";
+import styled from "styled-components";
+import Icon from "../Icon";
+import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
 interface Props {}
 
 // Component ---------------------------------------------------------------------
-const Header: React.FC<Props> = () => {
+const NavBar: React.FC<Props> = () => {
   return (
     <Wrapper>
-      <Logo />
-      <SearchBar />
-      <NavBar />
+      <Box>
+        <Icon mr={1} as={FaCaretDown} />
+        <Text fontSize={"md"}>Leaderboards</Text>
+      </Box>
     </Wrapper>
   );
 };
 
-export default Header;
+export default NavBar;
 
 // Styled ------------------------------------------------------------------------
 
 const Wrapper = styled.div`
-  padding: 50px 0;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+`;
+
+const Box = styled.div`
+  display: flex;
+  align-items: center;
 `;

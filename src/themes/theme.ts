@@ -15,6 +15,14 @@ export const theme = {
     background: "#181818",
   },
   font: `'Sora', sans-serif`,
+  fontSizes: {
+    xs: "0.625rem",
+    sm: "0.75rem",
+    md: "1rem",
+    lg: "1.25rem",
+    xl: "1.625rem",
+    xxl: "2rem",
+  },
 };
 
 export type ThemeProps = typeof theme;

@@ -14,6 +14,15 @@ html {
 body, input, button {
 	font-family: ${({ theme }) => theme.font};
 }
+
+input, button {
+	border: none;
+	background: none;
+
+	&:focus {
+		outline: none;
+	}
+}
 `;
 
 export default GlobalStyle;
