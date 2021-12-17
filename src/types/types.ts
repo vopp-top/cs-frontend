@@ -1,11 +1,11 @@
 // Streamer
-interface User {
+export interface User {
   name: string;
   count: number;
   position: number;
 }
 
-interface Emote {
+export interface Emote {
   name: string;
   count: number;
   url: string;

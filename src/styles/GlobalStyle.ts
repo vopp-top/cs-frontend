@@ -23,6 +23,14 @@ input, button {
 		outline: none;
 	}
 }
+
+a {
+	text-decoration: none;
+
+	&:hover{
+		text-decoration: underline;
+	}
+}
 `;
 
 export default GlobalStyle;

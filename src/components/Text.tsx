@@ -5,7 +5,9 @@ import { ThemeProps } from "../themes/theme";
 import { color, ColorProps } from "../types/styled-system.fix";
 // Types -------------------------------------------------------------------------
 
-interface Props extends SpaceProps, TypographyProps, ColorProps {}
+interface Props extends SpaceProps, TypographyProps, ColorProps {
+  as?: any;
+}
 
 // Component ---------------------------------------------------------------------
 const Text: React.FC<Props> = ({ children, ...props }) => {

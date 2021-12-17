@@ -20,7 +20,8 @@ export default Layout;
 // Styled ------------------------------------------------------------------------
 
 const Wrapper = styled.div`
-  max-width: 1120px;
+  max-width: 1440px;
+  padding: 0 72px;
   width: 100%;
   margin: auto;
 `;
