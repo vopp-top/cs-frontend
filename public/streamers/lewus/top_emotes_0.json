@@ -1,0 +1,605 @@
+{
+    "emotes": [
+        {
+            "name": "xD",
+            "count": 2021,
+            "url": "https://cdn.7tv.app/emote/60afba2852a13d1adb2cb7b1/1x",
+            "position": 1
+        },
+        {
+            "name": "POLICE",
+            "count": 1086,
+            "url": "https://cdn.betterttv.net/emote/606c8ab7fba15a03df2c94e6/1x",
+            "position": 2
+        },
+        {
+            "name": "PogU",
+            "count": 1083,
+            "url": "https://cdn.betterttv.net/emote/61a7d576002cdeedc21dbf58/1x",
+            "position": 3
+        },
+        {
+            "name": "FIRE",
+            "count": 854,
+            "url": "https://cdn.betterttv.net/emote/6087488d39b5010444d06dff/1x",
+            "position": 4
+        },
+        {
+            "name": "Porvalo",
+            "count": 674,
+            "url": "https://cdn.betterttv.net/emote/618a79b51f8ff7628e6d1cc4/1x",
+            "position": 5
+        },
+        {
+            "name": "lebronJAM",
+            "count": 601,
+            "url": "https://cdn.7tv.app/emote/60f7cf1a31ba6ae622e5fab3/1x",
+            "position": 6
+        },
+        {
+            "name": "Sadeg",
+            "count": 551,
+            "url": "https://cdn.betterttv.net/emote/618a7b0c1f8ff7628e6d1d2d/1x",
+            "position": 7
+        },
+        {
+            "name": "PeepoGlad",
+            "count": 484,
+            "url": "//cdn.frankerfacez.com/emote/244322/1",
+            "position": 8
+        },
+        {
+            "name": "BRUHBRUH",
+            "count": 407,
+            "url": "https://cdn.betterttv.net/emote/6033974b7c74605395f322a1/1x",
+            "position": 9
+        },
+        {
+            "name": "cmonBrug",
+            "count": 380,
+            "url": "https://cdn.7tv.app/emote/61a8e0a1e9684edbbc37f87f/1x",
+            "position": 10
+        },
+        {
+            "name": "EZ",
+            "count": 323,
+            "url": "https://cdn.7tv.app/emote/612e7ef363c49cbc000a6953/1x",
+            "position": 11
+        },
+        {
+            "name": "MONKE",
+            "count": 289,
+            "url": "https://cdn.betterttv.net/emote/603be3937c74605395f35fd6/1x",
+            "position": 12
+        },
+        {
+            "name": "Madge",
+            "count": 243,
+            "url": "https://cdn.betterttv.net/emote/5fbc0e6a0d141d6f06d812c5/1x",
+            "position": 13
+        },
+        {
+            "name": "WideHardo",
+            "count": 241,
+            "url": "//cdn.frankerfacez.com/emote/309114/1",
+            "position": 14
+        },
+        {
+            "name": "D:",
+            "count": 238,
+            "url": "https://cdn.betterttv.net/emote/55028cd2135896936880fdd7/1x",
+            "position": 15
+        },
+        {
+            "name": ":tf:",
+            "count": 204,
+            "url": "https://cdn.betterttv.net/emote/54fa8f1401e468494b85b537/1x",
+            "position": 16
+        },
+        {
+            "name": "Chatting",
+            "count": 202,
+            "url": "https://cdn.7tv.app/emote/61a9120a15b3ff4a5bb8e613/1x",
+            "position": 17
+        },
+        {
+            "name": "PykPykPyk",
+            "count": 196,
+            "url": "https://cdn.betterttv.net/emote/5fd9ad37c158a13494c3ffd8/1x",
+            "position": 18
+        },
+        {
+            "name": "TROLL",
+            "count": 194,
+            "url": "https://cdn.betterttv.net/emote/60e54f078ed8b373e421ee70/1x",
+            "position": 19
+        },
+        {
+            "name": "Lambrughini1",
+            "count": 194,
+            "url": "https://cdn.7tv.app/emote/60b07921ad7fb4b50b4a41e3/1x",
+            "position": 20
+        },
+        {
+            "name": "Lambrughini2",
+            "count": 193,
+            "url": "https://cdn.7tv.app/emote/60b0795b007f7e8b0e01e4c9/1x",
+            "position": 21
+        },
+        {
+            "name": "Suseg",
+            "count": 188,
+            "url": "https://cdn.7tv.app/emote/615c92e03aa89fb458c1d29d/1x",
+            "position": 22
+        },
+        {
+            "name": "Susge",
+            "count": 167,
+            "url": "https://cdn.betterttv.net/emote/618a67bc1f8ff7628e6d197a/1x",
+            "position": 23
+        },
+        {
+            "name": "lewusHey",
+            "count": 155,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_a1b0e50cdd5b42a5ad35818ff7cf3766/static/light/1.0",
+            "position": 24
+        },
+        {
+            "name": "Clap",
+            "count": 154,
+            "url": "https://cdn.7tv.app/emote/60b0fd11726e10b664f4330c/1x",
+            "position": 25
+        },
+        {
+            "name": "Bedge",
+            "count": 151,
+            "url": "https://cdn.7tv.app/emote/61a13868ffa9aba101bb3f29/1x",
+            "position": 26
+        },
+        {
+            "name": "EZZA",
+            "count": 148,
+            "url": "//cdn.frankerfacez.com/emote/614311/1",
+            "position": 27
+        },
+        {
+            "name": "FUNgineer",
+            "count": 132,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/244/static/light/1.0",
+            "position": 28
+        },
+        {
+            "name": "catJAM",
+            "count": 128,
+            "url": "https://cdn.7tv.app/emote/60fdc2ab6615c1f16b64ff4a/1x",
+            "position": 29
+        },
+        {
+            "name": "KEKW",
+            "count": 125,
+            "url": "//cdn.frankerfacez.com/emote/414612/1",
+            "position": 30
+        },
+        {
+            "name": "LIKE",
+            "count": 122,
+            "url": "https://cdn.7tv.app/emote/61a13bb4e9684edbbc36f536/1x",
+            "position": 31
+        },
+        {
+            "name": "VisLaud",
+            "count": 119,
+            "url": "https://cdn.betterttv.net/emote/550352766f86a5b26c281ba2/1x",
+            "position": 32
+        },
+        {
+            "name": "GIGA60",
+            "count": 117,
+            "url": "https://cdn.7tv.app/emote/61843ba44ea2f24e50095dfb/1x",
+            "position": 33
+        },
+        {
+            "name": ":D",
+            "count": 110,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/555555560/static/light/1.0",
+            "position": 34
+        },
+        {
+            "name": ":)",
+            "count": 109,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/1/static/light/1.0",
+            "position": 35
+        },
+        {
+            "name": "WeirdChamping",
+            "count": 109,
+            "url": "https://cdn.betterttv.net/emote/5e9e0eb47e090362f8b0d9a4/1x",
+            "position": 36
+        },
+        {
+            "name": "PogChamp",
+            "count": 107,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/305954156/static/light/1.0",
+            "position": 37
+        },
+        {
+            "name": "GIGACHAD",
+            "count": 106,
+            "url": "https://cdn.betterttv.net/emote/61471979b63cc97ee6d2412e/1x",
+            "position": 38
+        },
+        {
+            "name": "BloodTrail",
+            "count": 100,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/69/static/light/1.0",
+            "position": 39
+        },
+        {
+            "name": "DansGame",
+            "count": 98,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/33/static/light/1.0",
+            "position": 40
+        },
+        {
+            "name": "Pog",
+            "count": 93,
+            "url": "//cdn.frankerfacez.com/emote/210748/1",
+            "position": 41
+        },
+        {
+            "name": "60",
+            "count": 86,
+            "url": "https://cdn.7tv.app/emote/617500b4ffc7244d797d01b2/1x",
+            "position": 42
+        },
+        {
+            "name": "monkaS",
+            "count": 86,
+            "url": "https://cdn.betterttv.net/emote/56e9f494fff3cc5c35e5287e/1x",
+            "position": 43
+        },
+        {
+            "name": "BOOBA",
+            "count": 84,
+            "url": "https://cdn.betterttv.net/emote/619f0684b50549e7e500d09a/1x",
+            "position": 44
+        },
+        {
+            "name": "OOOO",
+            "count": 82,
+            "url": "https://cdn.betterttv.net/emote/5feff41af58a572e54213427/1x",
+            "position": 45
+        },
+        {
+            "name": "peepoBlush",
+            "count": 80,
+            "url": "https://cdn.7tv.app/emote/61a579b4ffa9aba101bbcddd/1x",
+            "position": 46
+        },
+        {
+            "name": "Sadge",
+            "count": 80,
+            "url": "https://cdn.betterttv.net/emote/618bda941f8ff7628e6d44cb/1x",
+            "position": 47
+        },
+        {
+            "name": "Zamieszki",
+            "count": 78,
+            "url": "https://cdn.7tv.app/emote/60c46fbfa288c992307eaaf2/1x",
+            "position": 48
+        },
+        {
+            "name": "MODS",
+            "count": 77,
+            "url": "https://cdn.7tv.app/emote/619565daeecae7a725bbb805/1x",
+            "position": 49
+        },
+        {
+            "name": "BatChest",
+            "count": 73,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/115234/static/light/1.0",
+            "position": 50
+        },
+        {
+            "name": "SUSSY",
+            "count": 69,
+            "url": "https://cdn.7tv.app/emote/619ae4c970bd9959879597fc/1x",
+            "position": 51
+        },
+        {
+            "name": "AlienPls3",
+            "count": 68,
+            "url": "https://cdn.betterttv.net/emote/6185927a1f8ff7628e6c98b9/1x",
+            "position": 52
+        },
+        {
+            "name": "<3",
+            "count": 66,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/555555584/static/light/1.0",
+            "position": 53
+        },
+        {
+            "name": "cmonBruh",
+            "count": 65,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/84608/static/light/1.0",
+            "position": 54
+        },
+        {
+            "name": "5Head",
+            "count": 64,
+            "url": "https://cdn.betterttv.net/emote/5d6096974932b21d9c332904/1x",
+            "position": 55
+        },
+        {
+            "name": "Prayge",
+            "count": 59,
+            "url": "https://cdn.betterttv.net/emote/5f8283e4e9c9344a8f357c37/1x",
+            "position": 56
+        },
+        {
+            "name": "peepoGladU",
+            "count": 55,
+            "url": "https://cdn.betterttv.net/emote/60457593306b602acc598ce7/1x",
+            "position": 57
+        },
+        {
+            "name": "PepeCringe",
+            "count": 52,
+            "url": "//cdn.frankerfacez.com/emote/417551/1",
+            "position": 58
+        },
+        {
+            "name": "B)",
+            "count": 52,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/555555577/static/light/1.0",
+            "position": 59
+        },
+        {
+            "name": "Kappa",
+            "count": 52,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/25/static/light/1.0",
+            "position": 60
+        },
+        {
+            "name": "pepeJAM",
+            "count": 49,
+            "url": "https://cdn.betterttv.net/emote/617819901f8ff7628e6b195d/1x",
+            "position": 61
+        },
+        {
+            "name": "ResidentSleeper",
+            "count": 49,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/245/static/light/1.0",
+            "position": 62
+        },
+        {
+            "name": "lewusChatting",
+            "count": 48,
+            "url": "https://cdn.betterttv.net/emote/619d6c3db50549e7e500a127/1x",
+            "position": 63
+        },
+        {
+            "name": "MLADY",
+            "count": 47,
+            "url": "https://cdn.betterttv.net/emote/61a8f178002cdeedc21de146/1x",
+            "position": 64
+        },
+        {
+            "name": "2Head",
+            "count": 47,
+            "url": "https://cdn.betterttv.net/emote/609e6f1267644f1d67e85f00/1x",
+            "position": 65
+        },
+        {
+            "name": "Kolarz",
+            "count": 46,
+            "url": "https://cdn.betterttv.net/emote/60d784bc8ed8b373e421a01c/1x",
+            "position": 66
+        },
+        {
+            "name": "YEP",
+            "count": 46,
+            "url": "//cdn.frankerfacez.com/emote/418189/1",
+            "position": 67
+        },
+        {
+            "name": "vvarioC",
+            "count": 44,
+            "url": "https://cdn.betterttv.net/emote/5f4c58a10b77be6bfcacb963/1x",
+            "position": 68
+        },
+        {
+            "name": "Tusiejebnij",
+            "count": 43,
+            "url": "https://cdn.betterttv.net/emote/605cdf147493072efdeb474c/1x",
+            "position": 69
+        },
+        {
+            "name": "KEKHeim",
+            "count": 41,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7c5d25facc384c47963d25a5057a0b40/static/light/1.0",
+            "position": 70
+        },
+        {
+            "name": "peepoWeen",
+            "count": 39,
+            "url": "https://cdn.7tv.app/emote/615e46098d244685f09d0d18/1x",
+            "position": 71
+        },
+        {
+            "name": "Madje",
+            "count": 38,
+            "url": "https://cdn.7tv.app/emote/61a5876ce9684edbbc377fde/1x",
+            "position": 72
+        },
+        {
+            "name": "DogLookingSussyAndWide",
+            "count": 37,
+            "url": "https://cdn.7tv.app/emote/60ed5e86741d620b760ebb65/1x",
+            "position": 73
+        },
+        {
+            "name": "Kreygasm",
+            "count": 37,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/41/static/light/1.0",
+            "position": 74
+        },
+        {
+            "name": "HyperClap",
+            "count": 37,
+            "url": "https://cdn.7tv.app/emote/60ae47f59986a00349483fa3/1x",
+            "position": 75
+        },
+        {
+            "name": "monkaW",
+            "count": 37,
+            "url": "https://cdn.7tv.app/emote/618523b2f1ae15abc7ebf747/1x",
+            "position": 76
+        },
+        {
+            "name": "pierdoli",
+            "count": 36,
+            "url": "https://cdn.7tv.app/emote/614c58a043b2d9da0d321e87/1x",
+            "position": 77
+        },
+        {
+            "name": ":O",
+            "count": 35,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/555555580/static/light/1.0",
+            "position": 78
+        },
+        {
+            "name": "PepoG",
+            "count": 35,
+            "url": "https://cdn.betterttv.net/emote/5fb8da5168e2d56f0f39a9bc/1x",
+            "position": 79
+        },
+        {
+            "name": "pepeCringe",
+            "count": 35,
+            "url": "https://cdn.betterttv.net/emote/5efc0d3179645a0dec35ba2b/1x",
+            "position": 80
+        },
+        {
+            "name": "Bulapierdoli",
+            "count": 35,
+            "url": "https://cdn.betterttv.net/emote/612665efaf28e956864a0d16/1x",
+            "position": 81
+        },
+        {
+            "name": "BroBalt",
+            "count": 34,
+            "url": "https://cdn.betterttv.net/emote/54fbf00a01abde735115de5c/1x",
+            "position": 82
+        },
+        {
+            "name": "HARAMBE123",
+            "count": 34,
+            "url": "//cdn.frankerfacez.com/emote/443535/1",
+            "position": 83
+        },
+        {
+            "name": "PauseChamp",
+            "count": 32,
+            "url": "https://cdn.betterttv.net/emote/5cd6b08cf1dac14a18c4b61f/1x",
+            "position": 84
+        },
+        {
+            "name": "HeyGuys",
+            "count": 32,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/30259/static/light/1.0",
+            "position": 85
+        },
+        {
+            "name": "peepoLove",
+            "count": 31,
+            "url": "https://cdn.betterttv.net/emote/61911bb154f3344f88059ef9/1x",
+            "position": 86
+        },
+        {
+            "name": "MORIS",
+            "count": 28,
+            "url": "https://cdn.7tv.app/emote/6194fe9efe46a7f0756a81fc/1x",
+            "position": 87
+        },
+        {
+            "name": "SadChatPls",
+            "count": 28,
+            "url": "https://cdn.7tv.app/emote/60b2cd9da6e172267648309a/1x",
+            "position": 88
+        },
+        {
+            "name": ":(",
+            "count": 27,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/555555558/static/light/1.0",
+            "position": 89
+        },
+        {
+            "name": "leosiaJAM",
+            "count": 26,
+            "url": "https://cdn.betterttv.net/emote/60551762306b602acc5a01d1/1x",
+            "position": 90
+        },
+        {
+            "name": "OMEGALUL",
+            "count": 25,
+            "url": "https://cdn.betterttv.net/emote/583089f4737a8e61abb0186b/1x",
+            "position": 91
+        },
+        {
+            "name": "boxdelPls",
+            "count": 24,
+            "url": "https://cdn.betterttv.net/emote/611c0fb176ea4e2b9f77cafa/1x",
+            "position": 92
+        },
+        {
+            "name": ";)",
+            "count": 23,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/555555589/static/light/1.0",
+            "position": 93
+        },
+        {
+            "name": "zapierdol",
+            "count": 23,
+            "url": "https://cdn.7tv.app/emote/60f7076a31ba6ae6228ccf13/1x",
+            "position": 94
+        },
+        {
+            "name": "lewusSemp",
+            "count": 22,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_f0110716a83b4a2d9d746e37e3c575b8/static/light/1.0",
+            "position": 95
+        },
+        {
+            "name": "Bula",
+            "count": 22,
+            "url": "https://cdn.betterttv.net/emote/607c33a239b5010444d019da/1x",
+            "position": 96
+        },
+        {
+            "name": "GoodTake",
+            "count": 22,
+            "url": "https://cdn.7tv.app/emote/6063d9f8f4dc10001426b946/1x",
+            "position": 97
+        },
+        {
+            "name": "TeaTime",
+            "count": 21,
+            "url": "https://cdn.7tv.app/emote/616ddab95ff09767de29798f/1x",
+            "position": 98
+        },
+        {
+            "name": "NotLikeThis",
+            "count": 21,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/58765/static/light/1.0",
+            "position": 99
+        },
+        {
+            "name": "BuddhaBar",
+            "count": 21,
+            "url": "https://static-cdn.jtvnw.net/emoticons/v2/27602/static/light/1.0",
+            "position": 100
+        }
+    ],
+    "next": "streamers/Lewus/top_users_1.json"
+}

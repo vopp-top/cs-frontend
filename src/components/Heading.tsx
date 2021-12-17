@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import Text from "./Text";
@@ -8,26 +6,25 @@ import Text from "./Text";
 interface Props {}
 
 // Component ---------------------------------------------------------------------
-const Logo: React.FC<Props> = () => {
+const Heading: React.FC<Props> = ({ children }) => {
   return (
-    <Link href={"/"}>
-      <Wrapper>
-        <Image src="/logo.svg" width="50" height="50" />
-        <Text ml={2} fontSize={"xl"} fontWeight={500}>
-          chat.vopp.top
-        </Text>
-      </Wrapper>
-    </Link>
+    <Wrapper>
+      <Text textColor={"main"} fontSize={"xxxl"} fontWeight={500}>
+        {children}
+      </Text>
+    </Wrapper>
   );
 };
 
-export default Logo;
+export default Heading;
 
 // Styled ------------------------------------------------------------------------
 
 const Wrapper = styled.div`
+  width: 100%;
+  height: 275px;
+  background-color: ${({ theme }) => theme.colors.sub};
   display: flex;
+  justify-content: center;
   align-items: center;
-  user-select: none;
-  cursor: pointer;
 `;

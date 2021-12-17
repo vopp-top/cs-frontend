@@ -16,12 +16,14 @@ export const theme = {
   },
   font: `'Sora', sans-serif`,
   fontSizes: {
-    xs: "0.625rem",
-    sm: "0.75rem",
+    xxs: "0.625rem",
+    xs: "0.75rem",
+    sm: "0.875rem",
     md: "1rem",
     lg: "1.25rem",
     xl: "1.625rem",
     xxl: "2rem",
+    xxxl: "3rem",
   },
 };
 

@@ -1,4 +1,5 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { KeyboardEvent } from "react";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 import Icon from "../Icon";
@@ -8,9 +9,21 @@ interface Props {}
 
 // Component ---------------------------------------------------------------------
 const SearchBar: React.FC<Props> = () => {
+  const router = useRouter();
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      router.push(`/user/${e.currentTarget.value}`);
+      e.currentTarget.value = "";
+    }
+  };
+
   return (
     <Wrapper>
-      <Input placeholder="Search for steamer"></Input>
+      <Input
+        type={"search"}
+        placeholder="Search for streamer"
+        onKeyDown={handleKeyDown}
+      />
       <Icon ml={2} as={FaSearch} />
     </Wrapper>
   );
