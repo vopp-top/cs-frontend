@@ -5,7 +5,7 @@ import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
 export interface ILeaderboard {
-  title: string;
+  title?: string;
   data: {}[];
   columns: {
     Header: string;
@@ -16,16 +16,16 @@ export interface ILeaderboard {
 
 // Component ---------------------------------------------------------------------
 const Leaderboard: React.FC<ILeaderboard> = ({ title, data, columns }) => {
-  if (data.length === 0) return <p>1</p>;
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
   return (
     <Wrapper>
-      <Text mb={3} fontWeight={400} fontSize={"xxl"}>
-        {title}
-      </Text>
+      {title && (
+        <Text mb={3} fontWeight={400} fontSize={"xxl"}>
+          {title}
+        </Text>
+      )}
       <Table {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup) => (
@@ -77,10 +77,8 @@ const Wrapper = styled.div`
 `;
 
 const Table = styled.table`
-  width: 100%;
+  max-width: 100%;
   border-spacing: 0;
-  /* table-layout: fixed; */
-  border-collapse: collapse;
 
   &.tableWrap {
     display: block;
@@ -103,6 +101,7 @@ const Table = styled.table`
 
 const TableHead = styled.thead`
   text-align: left;
+  white-space: nowrap;
 `;
 
 const TableRow = styled.tr`
@@ -112,22 +111,14 @@ const TableRow = styled.tr`
 `;
 
 const TableBody = styled.tbody`
-  max-width: fit-content;
   tr {
-    &:nth-child(odd):not(thead) {
+    &:nth-child(odd) {
       background-color: ${({ theme }) => theme.colors.sub};
     }
   }
 `;
 
 const TableData = styled.td`
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: fit-content;
-
-  vertical-align: middle;
-
   &.collapse {
     color: #ffffff80;
     font-weight: 400;

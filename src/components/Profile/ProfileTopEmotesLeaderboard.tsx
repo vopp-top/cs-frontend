@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Emote } from "../../types/types";
 import Leaderboard from "../Leaderboard/Leaderboard";
+import TableText from "../Leaderboard/TableText";
 import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
@@ -27,10 +28,9 @@ const ProfileTopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
         // @ts-ignore
         Cell: ({ row: { original } }) => {
           return (
-            <Emot>
-              <img src={original.url} />
-              <Text as={"span"}>{original.name}</Text>
-            </Emot>
+            <TableText text={original.name}>
+              <img src={original.url} alt={original.name} />
+            </TableText>
           );
         },
       },
@@ -38,6 +38,10 @@ const ProfileTopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
         Header: "Count",
         accessor: "count",
         collapse: true,
+        // @ts-ignore
+        Cell: ({ row: { original } }) => {
+          return original.count.toLocaleString("en-US");
+        },
       },
     ],
     []
@@ -47,14 +51,3 @@ const ProfileTopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
 };
 
 export default ProfileTopEmotesLeaderboard;
-
-// Styled ------------------------------------------------------------------------
-
-const Emot = styled.div`
-  display: flex;
-  align-items: center;
-
-  img {
-    margin-right: 1ch;
-  }
-`;

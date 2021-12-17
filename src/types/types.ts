@@ -23,3 +23,14 @@ export interface Streamer {
   users: [User];
   emotes: [Emote];
 }
+
+export interface IGlobal {
+  videos_count: number;
+  messages_count: number;
+  emotes_count: number;
+  time_count: number;
+  avatar: string;
+  users: User[];
+  emotes: Emote[];
+  streamers: Streamer[];
+}

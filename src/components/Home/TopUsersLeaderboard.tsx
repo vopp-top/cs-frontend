@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import { User } from "../../types/types";
+import Button from "../Button";
 import Leaderboard from "../Leaderboard/Leaderboard";
 // Types -------------------------------------------------------------------------
 
@@ -37,7 +38,12 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
     []
   );
 
-  return <Leaderboard title="Top Users" columns={columns} data={data} />;
+  return (
+    <Wrapper>
+      <Leaderboard columns={columns} data={data} title="Top Users" />
+      <Button>See more</Button>
+    </Wrapper>
+  );
 };
 
 export default TopUsersLeaderboard;

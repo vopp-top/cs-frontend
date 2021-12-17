@@ -21,7 +21,7 @@ const Wrapper = styled.div<Props>`
   ${size}
 
   cursor: pointer;
-  border-radius: 10%;
+  border-radius: 15%;
   background-size: cover;
   background-position: 50%;
   background-image: url(${({ url }) => url});

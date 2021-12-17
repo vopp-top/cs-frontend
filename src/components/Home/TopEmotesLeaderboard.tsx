@@ -1,16 +1,18 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import { User } from "../../types/types";
+import { Emote } from "../../types/types";
+import Button from "../Button";
 import Leaderboard from "../Leaderboard/Leaderboard";
+import TableText from "../Leaderboard/TableText";
 // Types -------------------------------------------------------------------------
 
 interface Props {
-  users: User[];
+  emotes: Emote[];
 }
 
 // Component ---------------------------------------------------------------------
-const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
-  const data = useMemo(() => users, [users]);
+const TopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
+  const data = useMemo(() => emotes, [emotes]);
 
   const columns = useMemo(
     () => [
@@ -20,9 +22,17 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
         collapse: true,
       },
       {
-        Header: "Nick",
+        Header: "Emote",
         accessor: "name",
         collapse: false,
+        // @ts-ignore
+        Cell: ({ row: { original } }) => {
+          return (
+            <TableText text={original.name}>
+              <img src={original.url} alt={original.name} />
+            </TableText>
+          );
+        },
       },
       {
         Header: "Count",
@@ -37,10 +47,15 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
     []
   );
 
-  return <Leaderboard title="Top Users" columns={columns} data={data} />;
+  return (
+    <Wrapper>
+      <Leaderboard title="Top Emotes" columns={columns} data={data} />
+      <Button>See more</Button>
+    </Wrapper>
+  );
 };
 
-export default TopUsersLeaderboard;
+export default TopEmotesLeaderboard;
 
 // Styled ------------------------------------------------------------------------
 

@@ -2,39 +2,31 @@ import React from "react";
 import styled from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import { color, ColorProps } from "../types/styled-system.fix";
-import Text from "./Text";
 // Types -------------------------------------------------------------------------
 
 interface Props extends ColorProps, SpaceProps {}
 
 // Component ---------------------------------------------------------------------
-const Heading: React.FC<Props> = ({ children, ...props }) => {
-  return (
-    <Wrapper {...props}>
-      <Text textColor={"inherit"} fontSize={"xxxl"} fontWeight={500}>
-        {children}
-      </Text>
-    </Wrapper>
-  );
+const Button: React.FC<Props> = ({ children }) => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
-export default Heading;
+export default Button;
 
 // Styled ------------------------------------------------------------------------
 
-const Wrapper = styled.div<Props>`
+const Wrapper = styled.button<Props>`
   width: 100%;
-  height: 275px;
+  height: 50px;
   background-color: ${({ theme }) => theme.colors.sub};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${space}
+  border-radius: ${({ theme }) => theme.rounded.sm};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  cursor: pointer;
 
   ${color}
+  ${space}
 `;
 
 Wrapper.defaultProps = {
-  textColor: "white",
-  mb: "160px",
+  textColor: "main",
 };

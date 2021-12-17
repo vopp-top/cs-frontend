@@ -61,7 +61,7 @@ const Profile: NextPage<Props> = () => {
   return (
     <Wrapper>
       <HeadingContainer>
-        <Heading>{user!.name}</Heading>
+        <Heading textColor={"main"}>{user!.name}</Heading>
         <Info>
           <a target={"_blank"} href={`https://www.twitch.tv/${user!.name}`}>
             <Avatar url={user!.avatar} size={160} />
@@ -90,12 +90,11 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Leaderboards = styled.div`
+export const Leaderboards = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10%;
-  /* justify-content: space-between; */
+  grid-gap: 100px;
 `;
 
 const HeadingContainer = styled.div`
