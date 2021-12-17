@@ -1,15 +1,7 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
 import styled from "styled-components";
 import { Emote } from "../../types/types";
-import Leaderboard, {
-  Table,
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableData,
-} from "../Leaderboard/Leaderboard";
+import Leaderboard from "../Leaderboard/Leaderboard";
 import Text from "../Text";
 // Types -------------------------------------------------------------------------
 

@@ -1,16 +1,7 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
 import styled from "styled-components";
 import { User } from "../../types/types";
-import Leaderboard, {
-  Table,
-  TableBody,
-  TableData,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../Leaderboard/Leaderboard";
-import Text from "../Text";
+import Leaderboard from "../Leaderboard/Leaderboard";
 // Types -------------------------------------------------------------------------
 
 interface Props {

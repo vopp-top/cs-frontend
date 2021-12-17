@@ -49,9 +49,9 @@ const Profile: React.FC<Props> = () => {
 
     if (usersRes) setUsers(usersRes.data.users);
 
-    const emotesRes = await axios.get(
-      `/__streamers__/${username}/top_emotes_0.json`
-    );
+    const emotesRes = await axios
+      .get(`/__streamers__/${username}/top_emotes_0.json`)
+      .catch((err) => console.log(err));
 
     if (emotesRes) setEmotes(emotesRes.data.emotes);
   };
