@@ -24,12 +24,20 @@ input, button {
 	}
 }
 
+button {
+	user-select: none;
+}
+
 a {
 	text-decoration: none;
 
 	&:hover{
 		text-decoration: underline;
 	}
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 `;
 

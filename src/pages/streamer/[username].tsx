@@ -1,85 +1,90 @@
 import axios from "axios";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
+import { GetServerSideProps, NextPage } from "next";
+import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaTwitch } from "react-icons/fa";
 import styled from "styled-components";
+import { server } from "..";
 import Avatar from "../../components/Avatar";
 import Heading from "../../components/Heading";
 import Icon from "../../components/Icon";
 import Loader from "../../components/Loader";
 import ProfileTopEmotesLeaderboard from "../../components/Profile/ProfileTopEmotesLeaderboard";
-import TopUsersLeaderboard from "../../components/Profile/ProfileTopUsersLeaderboard";
+import ProfileTopUsersLeaderboard from "../../components/Profile/ProfileTopUsersLeaderboard";
 import Text from "../../components/Text";
 import { Emote, Streamer, User } from "../../types/types";
 // Types -------------------------------------------------------------------------
 
-interface Props {}
+interface Props {
+  users: User[];
+  emotes: Emote[];
+  user: Streamer;
+}
 
 // Component ---------------------------------------------------------------------
-const Profile: NextPage<Props> = () => {
-  const { username } = useRouter().query;
-  const [user, setUser] = useState<Streamer | undefined | null>(undefined);
-  const [users, setUsers] = useState<User[]>([]);
-  const [emotes, setEmotes] = useState<Emote[]>([]);
-
-  // fetch streamer
-  const fetchData = async () => {
-    setUser(undefined);
-
-    const userRes = await axios
-      .get(`/__streamers__/${username}/index.json`)
-      .catch((err) => console.log(err));
-    if (!userRes) return setUser(null);
-
-    const usersRes = await axios.get(
-      `/__streamers__/${username}/top_users_0.json`
-    );
-    const emotesRes = await axios.get(
-      `/__streamers__/${username}/top_emotes_0.json`
-    );
-
-    setUsers(usersRes.data.users);
-    setEmotes(emotesRes.data.emotes);
-    setUser(userRes.data);
-  };
+const Profile: NextPage<Props> = ({ user, emotes, users }) => {
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!username) return;
-    fetchData();
-  }, [username]);
+    const start = () => setLoading(true);
+    const end = () => setLoading(false);
 
-  if (user === undefined) return <Loader />;
-  if (user === null)
-    return (
-      <Text fontWeight={500} fontSize={"md"} textAlign={"center"}>
-        Not found
-        <img src="https://cdn.betterttv.net/emote/618a7b0c1f8ff7628e6d1d2d/1x" />
-      </Text>
-    );
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+    };
+  }, []);
+
+  if (loading) return <Loader />;
+  else if (!user) return <Heading>Not found</Heading>;
 
   return (
     <Wrapper>
       <HeadingContainer>
-        <Heading textColor={"main"}>{user!.name}</Heading>
+        <Heading textColor={"main"}>{user.name}</Heading>
         <Info>
-          <a target={"_blank"} href={`https://www.twitch.tv/${user!.name}`}>
-            <Avatar url={user!.avatar} size={160} />
+          <a target={"_blank"} href={`https://www.twitch.tv/${user.name}`}>
+            <Avatar url={user.avatar} size={160} />
           </a>
           <Socials>
             <Icon mr={2} as={FaTwitch} size={18} textColor={"main"} />
-            <a target="_blank" href={`https://www.twitch.tv/${user!.name}`}>
-              <Text fontSize={"sm"}>twitch.tv/{user!.name}</Text>
+            <a target="_blank" href={`https://www.twitch.tv/${user.name}`}>
+              <Text fontSize={"sm"}>twitch.tv/{user.name}</Text>
             </a>
           </Socials>
         </Info>
       </HeadingContainer>
       <Leaderboards>
-        <TopUsersLeaderboard users={users} />
+        <ProfileTopUsersLeaderboard users={users} />
         <ProfileTopEmotesLeaderboard emotes={emotes} />
       </Leaderboards>
     </Wrapper>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { username } = ctx.query;
+
+  const user = await fetch(
+    `${server}/static/__streamers__/${username}/index.json`
+  )
+    .then((res) => res.json())
+    .catch((e) => console.log(e));
+
+  if (!user) return { props: { user: null } };
+
+  const { users } = await fetch(
+    `${server}/static/__streamers__/${username}/top_users_0.json`
+  ).then((res) => res.json());
+
+  const { emotes } = await fetch(
+    `${server}/static/__streamers__/${username}/top_emotes_0.json`
+  ).then((res) => res.json());
+
+  return { props: { user, users, emotes } };
 };
 
 export default Profile;

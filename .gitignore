@@ -4,8 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-/public/__streamers__
-/public/__global__
+/public/static
 
 # testing
 /coverage

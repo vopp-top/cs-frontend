@@ -12,7 +12,7 @@ const Logo: React.FC<Props> = () => {
   return (
     <Link href={"/"}>
       <Wrapper>
-        <Image src="/logo.svg" width="50" height="50" />
+        <Image src="/logo.svg" width="45" height="45" />
         <Text ml={2} fontSize={"xl"} fontWeight={500}>
           chat.vopp.top
         </Text>

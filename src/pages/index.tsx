@@ -1,32 +1,23 @@
 import axios from "axios";
-import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import styled from "styled-components";
 import Heading from "../components/Heading";
 import TopEmotesLeaderboard from "../components/Home/TopEmotesLeaderboard";
 import TopStreamersLeaderboard from "../components/Home/TopStreamersLeaderboard";
 import TopUsersLeaderboard from "../components/Home/TopUsersLeaderboard";
-import Loader from "../components/Loader";
 import Text from "../components/Text";
 import { IGlobal } from "../types/types";
 import { Leaderboards } from "./streamer/[username]";
 // import Head from "next/head";
 
-const Home: NextPage = () => {
-  const [data, setData] = useState<IGlobal>({} as IGlobal);
+interface Props {
+  data: IGlobal;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios
-        .get(`/__global__/index.json`)
-        .catch((err) => console.log(err));
+export const server =
+  "undefined" === typeof window ? "http://localhost:3000" : "https://vopp.top";
 
-      if (res) setData(res.data);
-    };
-    fetchData();
-  }, []);
-
-  if (Object.keys(data).length === 0) return <Loader />;
+const Home: NextPage<Props> = ({ data }) => {
   return (
     <Wrapper>
       <Heading mb={50}>
@@ -48,6 +39,14 @@ const Home: NextPage = () => {
       <TopStreamersLeaderboard streamers={data.streamers} />
     </Wrapper>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  const data = await fetch(`${server}/static/__global__/index.json`)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
+  return { props: { data } };
 };
 
 export default Home;

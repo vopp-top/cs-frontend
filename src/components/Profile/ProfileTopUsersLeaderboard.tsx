@@ -9,7 +9,7 @@ interface Props {
 }
 
 // Component ---------------------------------------------------------------------
-const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
+const ProfileTopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   const data = useMemo(() => users, [users]);
 
   const columns = useMemo(
@@ -40,7 +40,7 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   return <Leaderboard title="Top Users" columns={columns} data={data} />;
 };
 
-export default TopUsersLeaderboard;
+export default ProfileTopUsersLeaderboard;
 
 // Styled ------------------------------------------------------------------------
 

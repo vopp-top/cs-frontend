@@ -17,10 +17,10 @@ export default Button;
 
 const Wrapper = styled.button<Props>`
   width: 100%;
-  height: 50px;
+  height: 40px;
   background-color: ${({ theme }) => theme.colors.sub};
-  border-radius: ${({ theme }) => theme.rounded.sm};
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  border-radius: ${({ theme }) => theme.rounded.md};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   cursor: pointer;
 
   ${color}

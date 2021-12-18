@@ -1,9 +1,9 @@
+import Link from "next/link";
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import { Streamer } from "../../types/types";
 import Avatar from "../Avatar";
 import Leaderboard from "../Leaderboard/Leaderboard";
-import TableText from "../Leaderboard/TableText";
 import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
@@ -30,7 +30,9 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
         Cell: ({ row: { original } }) => {
           return (
             <Wrapper>
-              <Avatar mr={3} url={original.avatar} />
+              <Link href={`/streamer/${original.name}`}>
+                <Avatar mr={3} url={original.avatar} />
+              </Link>
               <Text as={"span"}>{original.name}</Text>
             </Wrapper>
           );
