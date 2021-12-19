@@ -1,17 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
 interface Props {
   text: string;
+  emote: string;
 }
 
 // Component ---------------------------------------------------------------------
-const TableText: React.FC<Props> = ({ children, text }) => {
+const TableText: React.FC<Props> = ({ text, emote }) => {
+  if (emote && text.length > 20) text = text.slice(0, 16) + "...";
+
   return (
     <Wrapper>
-      {children && <Emote>{children}</Emote>}
-      <Overflow>{text}</Overflow>
+      {emote && (
+        <Emote aria-label={emote}>
+          <img src={emote} alt={text} />
+        </Emote>
+      )}
+      <Text as={"span"}>{text}</Text>
     </Wrapper>
   );
 };
@@ -20,28 +28,20 @@ export default TableText;
 
 // Styled ------------------------------------------------------------------------
 
-const Wrapper = styled.span`
+const Wrapper = styled.div`
   width: 100%;
-  word-wrap: break-word;
-  vertical-align: baseline;
+  display: flex;
+  align-items: center;
+  font-family: Helvetica, sans-serif;
 `;
 
 const Emote = styled.div`
-  vertical-align: middle;
-  display: inline;
+  display: flex;
 
   img {
     position: relative;
     border: none;
     max-width: 100%;
-    vertical-align: middle;
     margin-right: 1ch;
-    display: inline;
   }
-`;
-
-const Overflow = styled.span`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 `;

@@ -1,6 +1,5 @@
-import axios from "axios";
 import { GetServerSideProps, NextPage } from "next";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaTwitch } from "react-icons/fa";
 import styled from "styled-components";
@@ -98,6 +97,7 @@ const Wrapper = styled.div`
 export const Leaderboards = styled.div`
   display: grid;
   width: 100%;
+  max-width: 100%;
   grid-template-columns: 1fr 1fr;
   grid-gap: 100px;
 `;

@@ -7,8 +7,8 @@ import { color, ColorProps } from "../types/styled-system.fix";
 interface Props extends ColorProps, SpaceProps {}
 
 // Component ---------------------------------------------------------------------
-const Button: React.FC<Props> = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
+const Button: React.FC<Props> = ({ children, ...props }) => {
+  return <Wrapper {...props}>{children}</Wrapper>;
 };
 
 export default Button;

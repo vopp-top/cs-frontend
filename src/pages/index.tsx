@@ -1,10 +1,10 @@
-import axios from "axios";
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import styled from "styled-components";
 import Heading from "../components/Heading";
 import TopEmotesLeaderboard from "../components/Home/TopEmotesLeaderboard";
 import TopStreamersLeaderboard from "../components/Home/TopStreamersLeaderboard";
 import TopUsersLeaderboard from "../components/Home/TopUsersLeaderboard";
+import Loader from "../components/Loader";
 import Text from "../components/Text";
 import { IGlobal } from "../types/types";
 import { Leaderboards } from "./streamer/[username]";
@@ -18,10 +18,12 @@ export const server =
   "undefined" === typeof window ? "http://localhost:3000" : "https://vopp.top";
 
 const Home: NextPage<Props> = ({ data }) => {
+  if (!data) return <Loader />;
+
   return (
     <Wrapper>
       <Heading mb={50}>
-        Top 10{" "}
+        Leaderboard{" "}
         <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
           /Nov
         </Text>
@@ -41,7 +43,7 @@ const Home: NextPage<Props> = ({ data }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const data = await fetch(`${server}/static/__global__/index.json`)
     .then((res) => res.json())
     .catch((err) => console.log(err));

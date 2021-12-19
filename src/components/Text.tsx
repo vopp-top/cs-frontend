@@ -25,7 +25,7 @@ const Wrapper = styled.p<Props>`
 `;
 
 Wrapper.defaultProps = {
-  textColor: "#fff",
+  textColor: "inherit",
   fontSize: "md",
-  fontWeight: 400,
+  fontWeight: "inherit",
 };

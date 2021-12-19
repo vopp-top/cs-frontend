@@ -20,6 +20,7 @@ const Wrapper = styled.div<Props>`
   ${space}
   ${size}
 
+  white-space: nowrap;
   cursor: pointer;
   border-radius: 15%;
   background-size: cover;

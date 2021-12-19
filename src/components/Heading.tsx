@@ -29,8 +29,10 @@ const Wrapper = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${space}
+  user-select: none;
+  cursor: pointer;
 
+  ${space}
   ${color}
 `;
 

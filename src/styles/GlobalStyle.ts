@@ -13,6 +13,7 @@ html {
 
 body, input, button {
 	font-family: ${({ theme }) => theme.font};
+	color: ${({ theme }) => theme.colors.text};
 }
 
 input, button {
@@ -21,6 +22,12 @@ input, button {
 
 	&:focus {
 		outline: none;
+	}
+}
+
+input {
+	&::placeholder {
+		user-select: none;
 	}
 }
 

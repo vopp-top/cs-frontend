@@ -12,7 +12,8 @@ interface Props
     ColorProps {}
 
 // Component ---------------------------------------------------------------------
-const Icon: React.FC<Props & { as: IconType }> = ({ as, ...props }) => {
+const Icon: React.FC<Props & { as: IconType | null }> = ({ as, ...props }) => {
+  if (!as) return null;
   return <Wrapper {...props}>{React.createElement(as)}</Wrapper>;
 };
 
@@ -36,5 +37,5 @@ const Wrapper = styled.div<Props>`
 
 Wrapper.defaultProps = {
   size: 20,
-  textColor: "#fff",
+  textColor: "inherit",
 };

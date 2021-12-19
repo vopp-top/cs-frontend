@@ -27,11 +27,7 @@ const ProfileTopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
         collapse: false,
         // @ts-ignore
         Cell: ({ row: { original } }) => {
-          return (
-            <TableText text={original.name}>
-              <img src={original.url} alt={original.name} />
-            </TableText>
-          );
+          return <TableText text={original.name} emote={original.url} />;
         },
       },
       {

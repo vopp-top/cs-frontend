@@ -76,7 +76,7 @@ const Wrapper = styled.div`
   max-width: 100%;
 `;
 
-const Table = styled.table`
+export const Table = styled.table`
   max-width: 100%;
   border-spacing: 0;
 
@@ -99,33 +99,41 @@ const Table = styled.table`
   }
 `;
 
-const TableHead = styled.thead`
-  text-align: left;
-  white-space: nowrap;
+export const TableHead = styled.thead`
+  word-wrap: none;
+  white-space: pre;
 `;
 
-const TableRow = styled.tr`
+export const TableRow = styled.tr`
   max-height: 65px;
   height: 65px;
   color: white;
+  /* text-align: center; */
 `;
 
-const TableBody = styled.tbody`
+export const TableBody = styled.tbody`
   tr {
     &:nth-child(odd) {
       background-color: ${({ theme }) => theme.colors.sub};
     }
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.subHover} !important;
+    }
   }
 `;
 
-const TableData = styled.td`
+export const TableData = styled.td`
   &.collapse {
     color: #ffffff80;
     font-weight: 400;
   }
 `;
 
-const TableHeader = styled.th`
+export const TableHeader = styled.th`
+  position: relative;
+  text-align: left;
+  user-select: none;
   color: ${({ theme }) => theme.colors.main};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 400;
