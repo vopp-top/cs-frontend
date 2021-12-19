@@ -1,15 +1,18 @@
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import React, { useMemo } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import styled from "styled-components";
-import { Streamer } from "../../types/types";
-import Avatar from "../Avatar";
-import Button from "../Button";
-import Icon from "../Icon";
-import { GlobalFilter } from "../Leaderboard/Streamers/GlobalFilter";
-import MonthSelection from "../Leaderboard/Streamers/MonthSelection";
-import Text from "../Text";
+import { server } from "../..";
+import Avatar from "../../../components/Avatar";
+import Button from "../../../components/Button";
+import Heading from "../../../components/Heading";
+import Icon from "../../../components/Icon";
+import { GlobalFilter } from "../../../components/Leaderboard/Streamers/GlobalFilter";
+import MonthSelection from "../../../components/Leaderboard/Streamers/MonthSelection";
+import Text from "../../../components/Text";
+import { Streamer } from "../../../types/types";
 // Types -------------------------------------------------------------------------
 
 interface Props {
@@ -17,7 +20,8 @@ interface Props {
 }
 
 // Component ---------------------------------------------------------------------
-const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
+const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
+  console.log(streamers);
   const data = useMemo(() => streamers, [streamers]);
 
   const columns = useMemo(
@@ -120,73 +124,84 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
   const firstPageRows = rows.slice(0, 25);
 
   return (
-    <Wrapper>
-      <Controllers>
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          // @ts-ignore
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-        <MonthSelection />
-      </Controllers>
-      <Table {...getTableProps()}>
-        <col span={1} className="wide" />
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: any) => (
-                <TableHeader
-                  colSpan={visibleColumns.length}
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  {...column.getHeaderProps({ className: column.className })}
-                  {...column.getHeaderProps({
-                    className: column.isSorted ? "active" : "",
-                  })}
-                >
-                  {column.render("Header")}
-                  <Caret>
-                    {column.isSorted ? (
-                      <Icon
-                        as={column.isSortedDesc ? FaCaretDown : FaCaretUp}
-                      />
-                    ) : null}
-                  </Caret>
-                </TableHeader>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody {...getTableBodyProps()}>
-          {firstPageRows.map((row) => {
-            prepareRow(row);
-            return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell: any) => {
-                  return (
-                    <TableData
-                      {...cell.getCellProps({
-                        className: cell.column.className,
-                      })}
-                      {...cell.getCellProps({
-                        className: cell.column.isSorted ? "active" : "",
-                      })}
-                    >
-                      {cell.render("Cell")}
-                    </TableData>
-                  );
-                })}
+    <>
+      <Heading mb={0}>Top Streamers</Heading>
+      <Wrapper>
+        <Controllers>
+          <GlobalFilter
+            preGlobalFilteredRows={preGlobalFilteredRows}
+            // @ts-ignore
+            globalFilter={state.globalFilter}
+            setGlobalFilter={setGlobalFilter}
+          />
+          <MonthSelection />
+        </Controllers>
+        <Table {...getTableProps()}>
+          <col span={1} className="wide" />
+          <TableHead>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column: any) => (
+                  <TableHeader
+                    colSpan={visibleColumns.length}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...column.getHeaderProps({ className: column.className })}
+                    {...column.getHeaderProps({
+                      className: column.isSorted ? "active" : "",
+                    })}
+                  >
+                    {column.render("Header")}
+                    <Caret>
+                      {column.isSorted ? (
+                        <Icon
+                          as={column.isSortedDesc ? FaCaretDown : FaCaretUp}
+                        />
+                      ) : null}
+                    </Caret>
+                  </TableHeader>
+                ))}
               </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-      <Button mt={3}>See more</Button>
-    </Wrapper>
+            ))}
+          </TableHead>
+          <TableBody {...getTableBodyProps()}>
+            {firstPageRows.map((row) => {
+              prepareRow(row);
+              return (
+                <TableRow {...row.getRowProps()}>
+                  {row.cells.map((cell: any) => {
+                    return (
+                      <TableData
+                        {...cell.getCellProps({
+                          className: cell.column.className,
+                        })}
+                        {...cell.getCellProps({
+                          className: cell.column.isSorted ? "active" : "",
+                        })}
+                      >
+                        {cell.render("Cell")}
+                      </TableData>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Wrapper>
+    </>
   );
 };
 
-export default TopStreamersLeaderboard;
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const { month }: any = ctx.params;
+
+  const data = await fetch(`${server}/static/${month}/global/index.json`)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
+  return { props: { streamers: data.streamers } };
+};
+export default TopStreamersLB;
 
 // Styled ------------------------------------------------------------------------
 

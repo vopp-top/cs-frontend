@@ -1,7 +1,13 @@
-import { UsePaginationOptions, UseSortByOptions } from "react-table";
+import {
+  UsePaginationOptions,
+  UseSortByOptions,
+  UseGlobalFiltersOptions,
+} from "react-table";
 
 declare module "react-table" {
   export interface TableOptions<D extends Record<string, unknown>>
     extends UsePaginationOptions<D>,
-      UseSortByOptions<D> {}
+      UseSortByOptions<D>,
+      UseGlobalFiltersOptions<D>,
+      UseGlobalFiltersInstanceProps<D> {}
 }

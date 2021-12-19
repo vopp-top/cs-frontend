@@ -35,7 +35,7 @@ export default SearchBar;
 // Styled ------------------------------------------------------------------------
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.sub};
+  background-color: ${({ theme }) => theme.colors.subHover};
   border-radius: ${({ theme }) => theme.rounded.sm};
   overflow: hidden;
   display: flex;

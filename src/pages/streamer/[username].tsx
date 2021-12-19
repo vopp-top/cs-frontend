@@ -11,17 +11,15 @@ import Loader from "../../components/Loader";
 import ProfileTopEmotesLeaderboard from "../../components/Profile/ProfileTopEmotesLeaderboard";
 import ProfileTopUsersLeaderboard from "../../components/Profile/ProfileTopUsersLeaderboard";
 import Text from "../../components/Text";
-import { Emote, Streamer, User } from "../../types/types";
+import { Streamer } from "../../types/types";
 // Types -------------------------------------------------------------------------
 
 interface Props {
-  users: User[];
-  emotes: Emote[];
-  user: Streamer;
+  data: Streamer;
 }
 
 // Component ---------------------------------------------------------------------
-const Profile: NextPage<Props> = ({ user, emotes, users }) => {
+const Profile: NextPage<Props> = ({ data }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -38,29 +36,29 @@ const Profile: NextPage<Props> = ({ user, emotes, users }) => {
   }, []);
 
   if (loading) return <Loader />;
-  else if (!user) return <Heading>Not found</Heading>;
+  else if (!data) return <Heading>Not found</Heading>;
 
   return (
     <Wrapper>
       <HeadingContainer>
-        <Heading textColor={"main"}>{user.name}</Heading>
+        <Heading textColor={"main"}>{data.name}</Heading>
         <Info>
-          <a target={"_blank"} href={`https://www.twitch.tv/${user.name}`}>
-            <Avatar url={user.avatar} size={160} />
+          <a target={"_blank"} href={`https://www.twitch.tv/${data.name}`}>
+            <Avatar url={data.avatar} size={160} />
           </a>
           <Socials>
             <Icon mr={2} as={FaTwitch} size={18} textColor={"main"} />
-            <a target="_blank" href={`https://www.twitch.tv/${user.name}`}>
+            <a target="_blank" href={`https://www.twitch.tv/${data.name}`}>
               <Text fontSize={"sm"} textColor={"white"}>
-                twitch.tv/{user.name}
+                twitch.tv/{data.name}
               </Text>
             </a>
           </Socials>
         </Info>
       </HeadingContainer>
       <Leaderboards>
-        <ProfileTopUsersLeaderboard users={users} />
-        <ProfileTopEmotesLeaderboard emotes={emotes} />
+        <ProfileTopUsersLeaderboard users={data.users} />
+        <ProfileTopEmotesLeaderboard emotes={data.emotes} />
       </Leaderboards>
     </Wrapper>
   );
@@ -69,23 +67,15 @@ const Profile: NextPage<Props> = ({ user, emotes, users }) => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { username } = ctx.query;
 
-  const user = await fetch(
+  const data = await fetch(
     `${server}/static/__streamers__/${username}/index.json`
   )
     .then((res) => res.json())
     .catch((e) => console.log(e));
 
-  if (!user) return { props: { user: null } };
+  if (!data) return { props: { data: null } };
 
-  const { users } = await fetch(
-    `${server}/static/__streamers__/${username}/top_users_0.json`
-  ).then((res) => res.json());
-
-  const { emotes } = await fetch(
-    `${server}/static/__streamers__/${username}/top_emotes_0.json`
-  ).then((res) => res.json());
-
-  return { props: { user, users, emotes } };
+  return { props: { data } };
 };
 
 export default Profile;

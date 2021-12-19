@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import styled from "styled-components";
 import Heading from "../components/Heading";
 import TopEmotesLeaderboard from "../components/Home/TopEmotesLeaderboard";
@@ -25,17 +25,17 @@ const Home: NextPage<Props> = ({ data }) => {
       <Heading mb={50}>
         Leaderboard{" "}
         <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
-          /Nov
+          /November21
         </Text>
       </Heading>
       <Leaderboards>
         <TopUsersLeaderboard users={data.users} />
         <TopEmotesLeaderboard emotes={data.emotes} />
       </Leaderboards>
-      <Heading my={50} mb={50}>
+      <Heading mt={50} mb={0}>
         Top Streamers{" "}
         <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
-          /Nov
+          /November21
         </Text>
       </Heading>
       <TopStreamersLeaderboard streamers={data.streamers} />
@@ -43,8 +43,8 @@ const Home: NextPage<Props> = ({ data }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const data = await fetch(`${server}/static/__global__/index.json`)
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const data = await fetch(`${server}/static/november21/global/index.json`)
     .then((res) => res.json())
     .catch((err) => console.log(err));
 
