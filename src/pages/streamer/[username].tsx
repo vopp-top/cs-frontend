@@ -51,7 +51,9 @@ const Profile: NextPage<Props> = ({ user, emotes, users }) => {
           <Socials>
             <Icon mr={2} as={FaTwitch} size={18} textColor={"main"} />
             <a target="_blank" href={`https://www.twitch.tv/${user.name}`}>
-              <Text fontSize={"sm"}>twitch.tv/{user.name}</Text>
+              <Text fontSize={"sm"} textColor={"white"}>
+                twitch.tv/{user.name}
+              </Text>
             </a>
           </Socials>
         </Info>

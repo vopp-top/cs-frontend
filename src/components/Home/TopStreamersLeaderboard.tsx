@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Streamer } from "../../types/types";
 import Avatar from "../Avatar";
 import Button from "../Button";
+import Icon from "../Icon";
 import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
         },
       },
       {
-        Header: "Watch time\nin seconds",
+        Header: "Stream time\nin seconds",
         accessor: "time_count",
         // @ts-ignore
         Cell: ({ row: { original } }) => {
@@ -105,7 +106,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
       useSortBy
     );
 
-  const firstPageRows = rows.slice(0, 24);
+  const firstPageRows = rows.slice(0, 25);
 
   return (
     <Wrapper>
@@ -118,19 +119,18 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
                 <TableHeader
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   {...column.getHeaderProps({ className: column.className })}
+                  {...column.getHeaderProps({
+                    className: column.isSorted ? "active" : "",
+                  })}
                 >
                   {column.render("Header")}
-                  {/* <Caret>
-                    <Icon
-                      as={
-                        column.isSorted
-                          ? column.isSortedDesc
-                            ? FaCaretDown
-                            : FaCaretUp
-                          : null
-                      }
-                    />
-                  </Caret> */}
+                  <Caret>
+                    {column.isSorted ? (
+                      <Icon
+                        as={column.isSortedDesc ? FaCaretDown : FaCaretUp}
+                      />
+                    ) : null}
+                  </Caret>
                 </TableHeader>
               ))}
             </TableRow>
@@ -146,6 +146,9 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
                     <TableData
                       {...cell.getCellProps({
                         className: cell.column.className,
+                      })}
+                      {...cell.getCellProps({
+                        className: cell.column.isSorted ? "active" : "",
                       })}
                     >
                       {cell.render("Cell")}
@@ -172,6 +175,13 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
+const Caret = styled.div`
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
 const Table = styled.table`
   color: ${({ theme }) => theme.colors.textSub};
   border-spacing: 0;
@@ -182,10 +192,15 @@ const Table = styled.table`
     width: 5%;
   }
 
+  .active {
+    background-color: ${({ theme }) => theme.colors.subHover};
+  }
+
   td,
   th {
     padding: 15px 10px;
   }
+
   width: 100%;
 `;
 
@@ -198,11 +213,13 @@ const TableHead = styled.thead`
 
 const TableHeader = styled.th`
   color: ${({ theme }) => theme.colors.main};
+  position: relative;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.sm};
 
   &.streamer {
     text-align: left;
+    padding-left: 0;
   }
 `;
 
@@ -223,12 +240,18 @@ const TableRow = styled.tr``;
 const TableData = styled.td`
   text-align: center;
 
+  &.active {
+    color: white;
+  }
+
   &.streamer {
     color: white;
     font-family: Helvetica, sans-serif;
     min-width: 225px;
     display: flex;
     align-items: center;
+    padding: 15px 10px;
+    padding-left: 0;
 
     span {
       text-decoration: none;
@@ -239,6 +262,7 @@ const TableData = styled.td`
 
   &.place {
     padding: 20px 0;
-    width: 50px;
+    font-weight: 300;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
