@@ -9,5 +9,7 @@ declare module "react-table" {
     extends UsePaginationOptions<D>,
       UseSortByOptions<D>,
       UseGlobalFiltersOptions<D>,
-      UseGlobalFiltersInstanceProps<D> {}
+      UseGlobalFiltersInstanceProps<D>,
+      UsePaginationOptions<D>,
+      UsePaginationInstanceProps<D> {}
 }

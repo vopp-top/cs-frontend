@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import styled from "styled-components";
+import { month } from "../../constants/currentMonth";
 import { Streamer } from "../../types/types";
 import Avatar from "../Avatar";
 import Button from "../Button";
@@ -117,7 +118,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
     useSortBy
   );
 
-  const firstPageRows = rows.slice(0, 25);
+  const firstPageRows = rows.slice(0, 20);
 
   return (
     <Wrapper>
@@ -181,7 +182,9 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
           })}
         </TableBody>
       </Table>
-      <Button mt={3}>See more</Button>
+      <Link href={`/leaderboards/streamers/${month()}`}>
+        <Button>See more</Button>
+      </Link>
     </Wrapper>
   );
 };

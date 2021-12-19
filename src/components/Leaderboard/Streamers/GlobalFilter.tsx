@@ -58,7 +58,7 @@ const Wrapper = styled.div`
 const SearchBox = styled.input`
   padding: 0 1.2rem;
   height: 100%;
-  width: 350px;
+  width: 300px;
   background-color: ${({ theme }) => theme.colors.subHover};
   border-radius: ${({ theme }) => theme.rounded.md};
   font-size: ${({ theme }) => theme.fontSizes.md};

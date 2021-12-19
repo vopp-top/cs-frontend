@@ -1,4 +1,5 @@
 import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import styled from "styled-components";
 import Heading from "../components/Heading";
 import TopEmotesLeaderboard from "../components/Home/TopEmotesLeaderboard";
@@ -6,6 +7,7 @@ import TopStreamersLeaderboard from "../components/Home/TopStreamersLeaderboard"
 import TopUsersLeaderboard from "../components/Home/TopUsersLeaderboard";
 import Loader from "../components/Loader";
 import Text from "../components/Text";
+import { month } from "../constants/currentMonth";
 import { IGlobal } from "../types/types";
 import { Leaderboards } from "./streamer/[username]";
 // import Head from "next/head";
@@ -32,19 +34,21 @@ const Home: NextPage<Props> = ({ data }) => {
         <TopUsersLeaderboard users={data.users} />
         <TopEmotesLeaderboard emotes={data.emotes} />
       </Leaderboards>
-      <Heading mt={50} mb={0}>
-        Top Streamers{" "}
-        <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
-          /November21
-        </Text>
-      </Heading>
+      <Link href={`/leaderboards/streamers/${month()}`}>
+        <Heading mt={50} mb={0}>
+          Top Streamers{" "}
+          <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
+            /November21
+          </Text>
+        </Heading>
+      </Link>
       <TopStreamersLeaderboard streamers={data.streamers} />
     </Wrapper>
   );
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const data = await fetch(`${server}/static/november21/global/index.json`)
+  const data = await fetch(`${server}/static/${month()}/global/index.json`)
     .then((res) => res.json())
     .catch((err) => console.log(err));
 

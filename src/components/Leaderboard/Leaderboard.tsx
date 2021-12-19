@@ -25,6 +25,7 @@ export interface ILeaderboard {
 // Component ---------------------------------------------------------------------
 const Leaderboard: React.FC<ILeaderboard> = ({ title, data, columns }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    // @ts-ignore
     useTable({ columns, data });
 
   return (

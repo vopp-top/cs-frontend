@@ -1,8 +1,20 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import React, { useMemo } from "react";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import React, { useMemo, useState } from "react";
+import {
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+  FaAngleLeft,
+  FaAngleRight,
+  FaCaretDown,
+  FaCaretUp,
+} from "react-icons/fa";
+import {
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from "react-table";
 import styled from "styled-components";
 import { server } from "../..";
 import Avatar from "../../../components/Avatar";
@@ -11,7 +23,16 @@ import Heading from "../../../components/Heading";
 import Icon from "../../../components/Icon";
 import { GlobalFilter } from "../../../components/Leaderboard/Streamers/GlobalFilter";
 import MonthSelection from "../../../components/Leaderboard/Streamers/MonthSelection";
+import PaginationSelection from "../../../components/Leaderboard/Streamers/PaginationSelection";
+import Loader from "../../../components/Loader";
 import Text from "../../../components/Text";
+import {
+  PagBtn,
+  PagBtns,
+  PagControlls,
+  PageInput,
+  Pagination,
+} from "../../../styles/PaginationStyles";
 import { Streamer } from "../../../types/types";
 // Types -------------------------------------------------------------------------
 
@@ -21,7 +42,7 @@ interface Props {
 
 // Component ---------------------------------------------------------------------
 const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
-  console.log(streamers);
+  if (!streamers) return <Loader />;
   const data = useMemo(() => streamers, [streamers]);
 
   const columns = useMemo(
@@ -102,12 +123,23 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
     prepareRow,
     visibleColumns,
-    state,
+    // @ts-ignore
+    state: { pageIndex, pageSize, globalFilter },
     preGlobalFilteredRows,
     setGlobalFilter,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    // @ts-ignore
+    pageCount,
+    // pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
   } = useTable(
     {
       // @ts-ignore
@@ -118,24 +150,24 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
       initialState: { sortBy: [{ id: "count", desc: true }] },
     },
     useGlobalFilter,
-    useSortBy
+    useSortBy,
+    usePagination
   );
-
-  const firstPageRows = rows.slice(0, 25);
+  console.log(pageSize);
 
   return (
     <>
       <Heading mb={0}>Top Streamers</Heading>
-      <Wrapper>
-        <Controllers>
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            // @ts-ignore
-            globalFilter={state.globalFilter}
-            setGlobalFilter={setGlobalFilter}
-          />
-          <MonthSelection />
-        </Controllers>
+      <Controllers>
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          // @ts-ignore
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+        <MonthSelection />
+      </Controllers>
+      <Wrapper pageSize={pageSize}>
         <Table {...getTableProps()}>
           <col span={1} className="wide" />
           <TableHead>
@@ -164,7 +196,7 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {firstPageRows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <TableRow {...row.getRowProps()}>
@@ -188,6 +220,43 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
           </TableBody>
         </Table>
       </Wrapper>
+      <Pagination>
+        <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </Text>
+        <PagBtns>
+          <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            <Icon as={FaAngleDoubleLeft} />
+          </PagBtn>
+          <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
+            <Icon as={FaAngleLeft} />
+          </PagBtn>
+          <PageInput
+            placeholder="..."
+            type="number"
+            min={1}
+            max={pageOptions.length}
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+          />
+          <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+            <Icon as={FaAngleRight} />
+          </PagBtn>
+          <PagBtn
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            <Icon as={FaAngleDoubleRight} />
+          </PagBtn>
+        </PagBtns>
+        <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} />
+      </Pagination>
     </>
   );
 };
@@ -199,15 +268,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     .then((res) => res.json())
     .catch((err) => console.log(err));
 
-  return { props: { streamers: data.streamers } };
+  return { props: { streamers: data?.streamers } };
 };
 export default TopStreamersLB;
 
 // Styled ------------------------------------------------------------------------
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ pageSize: number }>`
+  min-height: calc(66px + 74px * ${({ pageSize }) => pageSize});
   width: 100%;
-  min-height: 100vh;
 `;
 
 const Controllers = styled.div`

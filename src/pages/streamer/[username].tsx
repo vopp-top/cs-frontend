@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { username } = ctx.query;
 
   const data = await fetch(
-    `${server}/static/__streamers__/${username}/index.json`
+    `${server}/static/november21/streamers/${username}/index.json`
   )
     .then((res) => res.json())
     .catch((e) => console.log(e));

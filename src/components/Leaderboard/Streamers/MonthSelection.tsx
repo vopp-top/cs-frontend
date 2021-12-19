@@ -56,14 +56,13 @@ export default MonthSelection;
 
 const Dropdown = styled.div`
   z-index: 999;
-  width: 350px;
+  width: 300px;
   background-color: #121212;
   border-radius: ${({ theme }) => theme.rounded.md};
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   height: 100%;
   cursor: pointer;
   user-select: none;
-  color: #ffffff80;
 
   &.div {
     height: 100%;
