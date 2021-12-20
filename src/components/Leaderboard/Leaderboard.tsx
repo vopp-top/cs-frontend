@@ -45,6 +45,7 @@ export interface ILeaderboard {
 const Leaderboard: React.FC<ILeaderboard> = ({
   title,
   data,
+  pagination,
   columns,
   fetchData,
   pageCount: controlledPageCount,
@@ -92,6 +93,45 @@ const Leaderboard: React.FC<ILeaderboard> = ({
         <Text mb={3} fontWeight={400} fontSize={"xxl"}>
           {title}
         </Text>
+      )}
+      {pagination && (
+        <Pagination>
+          <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </Text>
+          <PagBtns>
+            <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              <Icon as={FaAngleDoubleLeft} />
+            </PagBtn>
+            <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
+              <Icon as={FaAngleLeft} />
+            </PagBtn>
+            <PageInput
+              placeholder="..."
+              type="number"
+              min={1}
+              max={pageOptions.length}
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+            <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+              <Icon as={FaAngleRight} />
+            </PagBtn>
+            <PagBtn
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              <Icon as={FaAngleDoubleRight} />
+            </PagBtn>
+          </PagBtns>
+          {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
+        </Pagination>
       )}
       <Wrap>
         <Table {...getTableProps()}>
@@ -148,43 +188,45 @@ const Leaderboard: React.FC<ILeaderboard> = ({
           </TableBody>
         </Table>
       </Wrap>
-      <Pagination>
-        <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
-        </Text>
-        <PagBtns>
-          <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            <Icon as={FaAngleDoubleLeft} />
-          </PagBtn>
-          <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
-            <Icon as={FaAngleLeft} />
-          </PagBtn>
-          <PageInput
-            placeholder="..."
-            type="number"
-            min={1}
-            max={pageOptions.length}
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
-            }}
-          />
-          <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
-            <Icon as={FaAngleRight} />
-          </PagBtn>
-          <PagBtn
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            <Icon as={FaAngleDoubleRight} />
-          </PagBtn>
-        </PagBtns>
-        {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
-      </Pagination>
+      {pagination && (
+        <Pagination>
+          <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </Text>
+          <PagBtns>
+            <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              <Icon as={FaAngleDoubleLeft} />
+            </PagBtn>
+            <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
+              <Icon as={FaAngleLeft} />
+            </PagBtn>
+            <PageInput
+              placeholder="..."
+              type="number"
+              min={1}
+              max={pageOptions.length}
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+            <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+              <Icon as={FaAngleRight} />
+            </PagBtn>
+            <PagBtn
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              <Icon as={FaAngleDoubleRight} />
+            </PagBtn>
+          </PagBtns>
+          {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
+        </Pagination>
+      )}
     </Wrapper>
   );
 };
