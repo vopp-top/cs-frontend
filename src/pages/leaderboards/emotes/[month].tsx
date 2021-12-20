@@ -1,20 +1,20 @@
-import Link from "next/link";
+import { GetServerSideProps } from "next";
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import { month } from "../../constants/currentMonth";
-import { User } from "../../types/types";
-import Button from "../Button";
-import Leaderboard from "../Leaderboard/Leaderboard";
-import TableText from "../Leaderboard/TableText";
+import { server } from "../..";
+import Leaderboard from "../../../components/Leaderboard/Leaderboard";
+import TableText from "../../../components/Leaderboard/TableText";
+import { month } from "../../../constants/currentMonth";
+import { Emote } from "../../../types/types";
 // Types -------------------------------------------------------------------------
 
 interface Props {
-  users: User[];
+  emotes: Emote[];
 }
 
 // Component ---------------------------------------------------------------------
-const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
-  const data = useMemo(() => users, [users]);
+const TopEmotesPage: React.FC<Props> = ({ emotes }) => {
+  const data = useMemo(() => emotes, [emotes]);
 
   const columns = useMemo(
     () => [
@@ -52,19 +52,18 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
     []
   );
 
-  return (
-    <Wrapper>
-      <Leaderboard columns={columns} data={data} title="Top Users" />
-      <Link href={`/leaderboards/users/${month()}`}>
-        <Button height={50} fontSize={"md"}>
-          Full Leaderboard
-        </Button>
-      </Link>
-    </Wrapper>
-  );
+  return <Leaderboard data={data} columns={columns} />;
 };
 
-export default TopUsersLeaderboard;
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const emotes = await fetch(`${server}/static/${month()}/global/emotes.json`)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
+  return { props: { emotes } };
+};
+
+export default TopEmotesPage;
 
 // Styled ------------------------------------------------------------------------
 

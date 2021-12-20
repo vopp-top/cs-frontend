@@ -24,7 +24,6 @@ export default Button;
 
 const Wrapper = styled.button<Props>`
   width: 100%;
-  height: 40px;
   background-color: ${({ theme }) => theme.colors.sub};
   border-radius: ${({ theme }) => theme.rounded.sm};
   cursor: pointer;
@@ -43,4 +42,5 @@ const Wrapper = styled.button<Props>`
 Wrapper.defaultProps = {
   textColor: "main",
   fontSize: "sm",
+  height: "50px",
 };

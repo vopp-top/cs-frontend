@@ -1,5 +1,11 @@
-import React from "react";
-import { useTable } from "react-table";
+import React, { useEffect } from "react";
+import {
+  FaAngleDoubleLeft,
+  FaAngleLeft,
+  FaAngleRight,
+  FaAngleDoubleRight,
+} from "react-icons/fa";
+import { usePagination, useTable } from "react-table";
 import styled from "styled-components";
 import {
   Table,
@@ -9,7 +15,16 @@ import {
   TableBody,
   TableData,
 } from "../../styles/LeaderboardStyles";
+import {
+  Pagination,
+  PagBtns,
+  PagBtn,
+  PageInput,
+} from "../../styles/PaginationStyles";
+import { User } from "../../types/types";
+import Icon from "../Icon";
 import Text from "../Text";
+import PaginationSelection from "./Streamers/PaginationSelection";
 // Types -------------------------------------------------------------------------
 
 export interface ILeaderboard {
@@ -20,13 +35,56 @@ export interface ILeaderboard {
     accessor: string;
     collapse?: boolean;
   }[];
+  fetchData?: ({}: any) => any;
+  loading?: boolean;
+  pageCount?: number;
+  pagination?: boolean;
 }
 
 // Component ---------------------------------------------------------------------
-const Leaderboard: React.FC<ILeaderboard> = ({ title, data, columns }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+const Leaderboard: React.FC<ILeaderboard> = ({
+  title,
+  data,
+  columns,
+  fetchData,
+  pageCount: controlledPageCount,
+  loading,
+}) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
     // @ts-ignore
-    useTable({ columns, data });
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    // @ts-ignore
+    state: { pageIndex, pageSize },
+  } =
+    // @ts-ignore
+    useTable(
+      {
+        columns,
+        data,
+        // @ts-ignore
+        initialState: { pageIndex: 0 },
+        manualPagination: true,
+        pageCount: controlledPageCount,
+      },
+      usePagination
+    );
+
+  useEffect(() => {
+    if (!fetchData) return;
+    fetchData({ pageIndex, pageSize });
+  }, [fetchData, pageIndex, pageSize]);
 
   return (
     <Wrapper>
@@ -61,7 +119,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({ title, data, columns }) => {
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <TableRow {...row.getRowProps()}>
@@ -90,6 +148,43 @@ const Leaderboard: React.FC<ILeaderboard> = ({ title, data, columns }) => {
           </TableBody>
         </Table>
       </Wrap>
+      <Pagination>
+        <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </Text>
+        <PagBtns>
+          <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            <Icon as={FaAngleDoubleLeft} />
+          </PagBtn>
+          <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
+            <Icon as={FaAngleLeft} />
+          </PagBtn>
+          <PageInput
+            placeholder="..."
+            type="number"
+            min={1}
+            max={pageOptions.length}
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+          />
+          <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+            <Icon as={FaAngleRight} />
+          </PagBtn>
+          <PagBtn
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            <Icon as={FaAngleDoubleRight} />
+          </PagBtn>
+        </PagBtns>
+        {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
+      </Pagination>
     </Wrapper>
   );
 };

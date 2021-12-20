@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from "../Logo";
-import Text from "../Text";
-import SearchBar from "./SearchBar";
-import { FaCaretDown } from "react-icons/fa";
 import NavBar from "./NavBar";
+import SearchBar from "./SearchBar";
 // Types -------------------------------------------------------------------------
 
 interface Props {}

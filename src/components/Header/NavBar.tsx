@@ -3,6 +3,7 @@ import { FaCaretDown } from "react-icons/fa";
 import styled from "styled-components";
 import Icon from "../Icon";
 import Text from "../Text";
+import NavBarSelection from "./NavBarSelection";
 // Types -------------------------------------------------------------------------
 
 interface Props {}
@@ -12,8 +13,7 @@ const NavBar: React.FC<Props> = () => {
   return (
     <Wrapper>
       <Box>
-        <Icon mr={1} as={FaCaretDown} />
-        <Text fontSize={"md"}>Leaderboards</Text>
+        <NavBarSelection />
       </Box>
     </Wrapper>
   );
@@ -29,6 +29,7 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
+  height: 100%;
   display: flex;
   align-items: center;
 `;
