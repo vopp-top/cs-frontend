@@ -1,24 +1,21 @@
 import styled from "styled-components";
 
 export const Table = styled.table`
-  max-width: 100%;
+  width: 100%;
   border-spacing: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: ${({ theme }) => theme.colors.textSub};
 
-  &.tableWrap {
-    display: block;
-    max-width: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
+  .wide {
+    width: 60px;
+    max-width: 60px;
   }
 
-  th,
+  tr,
   td {
-    margin: 0;
-    padding: 0 2rem;
-
-    width: 1%;
-    &.collapse {
-      width: 0.0000000001%;
+    &.name {
+      color: white;
     }
   }
 `;
@@ -29,10 +26,7 @@ export const TableHead = styled.thead`
 `;
 
 export const TableRow = styled.tr`
-  max-height: 65px;
   height: 65px;
-  color: white;
-  /* text-align: center; */
 `;
 
 export const TableBody = styled.tbody`
@@ -48,6 +42,23 @@ export const TableBody = styled.tbody`
 `;
 
 export const TableData = styled.td`
+  text-align: center;
+
+  &.place {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    padding: 0;
+    color: ${({ theme }) => theme.colors.textSub};
+  }
+
+  &.name {
+    padding: 0;
+    text-align: left;
+  }
+
+  /* &.count {
+    padding: 0 1rem;
+  } */
+
   &.collapse {
     color: #ffffff80;
     font-weight: 400;
@@ -56,9 +67,18 @@ export const TableData = styled.td`
 
 export const TableHeader = styled.th`
   position: relative;
-  text-align: left;
   user-select: none;
   color: ${({ theme }) => theme.colors.main};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 400;
+  text-align: center;
+
+  &.name {
+    text-align: left;
+    padding: 0;
+  }
+
+  /* &.count {
+    padding: 0 1rem;
+  } */
 `;

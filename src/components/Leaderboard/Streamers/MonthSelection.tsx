@@ -35,7 +35,6 @@ const MonthSelection: React.FC<Props> = () => {
                 onClick={() => {
                   const split = option.toLowerCase().split(" ");
                   const url = split[0] + split[1].slice(-2);
-                  console.log(url);
                   router.push(`/leaderboards/streamers/${url}`);
                   setActive(!active);
                 }}

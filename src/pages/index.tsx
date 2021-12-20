@@ -1,6 +1,7 @@
 import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
+import Button from "../components/Button";
 import Heading from "../components/Heading";
 import TopEmotesLeaderboard from "../components/Home/TopEmotesLeaderboard";
 import TopStreamersLeaderboard from "../components/Home/TopStreamersLeaderboard";
@@ -42,7 +43,12 @@ const Home: NextPage<Props> = ({ data }) => {
           </Text>
         </Heading>
       </Link>
-      <TopStreamersLeaderboard streamers={data.streamers} />
+      <TopStreamersLeaderboard controlls={false} streamers={data.streamers} />
+      <Link href={`/leaderboards/streamers/${month()}`}>
+        <Button height={50} fontSize={"md"}>
+          Full Leaderboard
+        </Button>
+      </Link>
     </Wrapper>
   );
 };

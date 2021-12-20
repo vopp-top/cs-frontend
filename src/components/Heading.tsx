@@ -1,7 +1,9 @@
 import React from "react";
+import { FaLink } from "react-icons/fa";
 import styled from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import { color, ColorProps } from "../types/styled-system.fix";
+import Icon from "./Icon";
 import Text from "./Text";
 // Types -------------------------------------------------------------------------
 
@@ -31,6 +33,11 @@ const Wrapper = styled.div<Props>`
   align-items: center;
   user-select: none;
   cursor: pointer;
+  transition: 150ms ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.subHover};
+  }
 
   ${space}
   ${color}

@@ -50,7 +50,7 @@ const Dropdown = styled.div`
   z-index: 999;
   background-color: ${({ theme }) => theme.colors.sub};
   border-radius: ${({ theme }) => theme.rounded.md};
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   height: 100%;
   cursor: pointer;
   user-select: none;

@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { space, SpaceProps } from "styled-system";
+import {
+  height,
+  HeightProps,
+  space,
+  SpaceProps,
+  typography,
+  TypographyProps,
+} from "styled-system";
 import { color, ColorProps } from "../types/styled-system.fix";
 // Types -------------------------------------------------------------------------
 
-interface Props extends ColorProps, SpaceProps {}
+interface Props extends ColorProps, SpaceProps, HeightProps, TypographyProps {}
 
 // Component ---------------------------------------------------------------------
 const Button: React.FC<Props> = ({ children, ...props }) => {
@@ -19,14 +26,21 @@ const Wrapper = styled.button<Props>`
   width: 100%;
   height: 40px;
   background-color: ${({ theme }) => theme.colors.sub};
-  border-radius: ${({ theme }) => theme.rounded.md};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  border-radius: ${({ theme }) => theme.rounded.sm};
   cursor: pointer;
+  transition: 150ms ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.subHover};
+  }
 
   ${color}
   ${space}
+  ${height}
+  ${typography}
 `;
 
 Wrapper.defaultProps = {
   textColor: "main",
+  fontSize: "sm",
 };

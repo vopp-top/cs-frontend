@@ -1,24 +1,44 @@
 import Link from "next/link";
 import React, { useMemo } from "react";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import {
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+  FaAngleLeft,
+  FaAngleRight,
+  FaCaretDown,
+  FaCaretUp,
+} from "react-icons/fa";
+import {
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from "react-table";
 import styled from "styled-components";
 import { month } from "../../constants/currentMonth";
+import {
+  Pagination,
+  PagBtns,
+  PagBtn,
+  PageInput,
+} from "../../styles/PaginationStyles";
 import { Streamer } from "../../types/types";
 import Avatar from "../Avatar";
 import Button from "../Button";
 import Icon from "../Icon";
 import { GlobalFilter } from "../Leaderboard/Streamers/GlobalFilter";
 import MonthSelection from "../Leaderboard/Streamers/MonthSelection";
+import PaginationSelection from "../Leaderboard/Streamers/PaginationSelection";
 import Text from "../Text";
 // Types -------------------------------------------------------------------------
 
 interface Props {
   streamers: Streamer[];
+  controlls: boolean;
 }
 
 // Component ---------------------------------------------------------------------
-const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
+const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
   const data = useMemo(() => streamers, [streamers]);
 
   const columns = useMemo(
@@ -99,12 +119,23 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
     prepareRow,
     visibleColumns,
-    state,
+    // @ts-ignore
+    state: { pageIndex, pageSize, globalFilter },
     preGlobalFilteredRows,
     setGlobalFilter,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    // @ts-ignore
+    pageCount,
+    // pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
   } = useTable(
     {
       // @ts-ignore
@@ -115,76 +146,115 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers }) => {
       initialState: { sortBy: [{ id: "count", desc: true }] },
     },
     useGlobalFilter,
-    useSortBy
+    useSortBy,
+    usePagination
   );
-
-  const firstPageRows = rows.slice(0, 20);
+  console.log(pageSize);
 
   return (
     <Wrapper>
-      <Controllers>
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          // @ts-ignore
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-        <MonthSelection />
-      </Controllers>
-      <Table {...getTableProps()}>
-        <col span={1} className="wide" />
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: any) => (
-                <TableHeader
-                  colSpan={visibleColumns.length}
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  {...column.getHeaderProps({ className: column.className })}
-                  {...column.getHeaderProps({
-                    className: column.isSorted ? "active" : "",
-                  })}
-                >
-                  {column.render("Header")}
-                  <Caret>
-                    {column.isSorted ? (
-                      <Icon
-                        as={column.isSortedDesc ? FaCaretDown : FaCaretUp}
-                      />
-                    ) : null}
-                  </Caret>
-                </TableHeader>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody {...getTableBodyProps()}>
-          {firstPageRows.map((row) => {
-            prepareRow(row);
-            return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell: any) => {
-                  return (
-                    <TableData
-                      {...cell.getCellProps({
-                        className: cell.column.className,
-                      })}
-                      {...cell.getCellProps({
-                        className: cell.column.isSorted ? "active" : "",
-                      })}
-                    >
-                      {cell.render("Cell")}
-                    </TableData>
-                  );
-                })}
+      {controlls && (
+        <Controllers>
+          <GlobalFilter
+            preGlobalFilteredRows={preGlobalFilteredRows}
+            globalFilter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
+          />
+          <MonthSelection />
+        </Controllers>
+      )}
+      <MinWrapper pageSize={pageSize}>
+        <Table {...getTableProps()}>
+          <col span={1} className="wide" />
+          <TableHead>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column: any) => (
+                  <TableHeader
+                    colSpan={visibleColumns.length}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...column.getHeaderProps({ className: column.className })}
+                    {...column.getHeaderProps({
+                      className: column.isSorted ? "active" : "",
+                    })}
+                  >
+                    {column.render("Header")}
+                    <Caret>
+                      {column.isSorted ? (
+                        <Icon
+                          as={column.isSortedDesc ? FaCaretDown : FaCaretUp}
+                        />
+                      ) : null}
+                    </Caret>
+                  </TableHeader>
+                ))}
               </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-      <Link href={`/leaderboards/streamers/${month()}`}>
-        <Button>See more</Button>
-      </Link>
+            ))}
+          </TableHead>
+          <TableBody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <TableRow {...row.getRowProps()}>
+                  {row.cells.map((cell: any) => {
+                    return (
+                      <TableData
+                        {...cell.getCellProps({
+                          className: cell.column.className,
+                        })}
+                        {...cell.getCellProps({
+                          className: cell.column.isSorted ? "active" : "",
+                        })}
+                      >
+                        {cell.render("Cell")}
+                      </TableData>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </MinWrapper>
+      {controlls && (
+        <Pagination>
+          <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </Text>
+          <PagBtns>
+            <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              <Icon as={FaAngleDoubleLeft} />
+            </PagBtn>
+            <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
+              <Icon as={FaAngleLeft} />
+            </PagBtn>
+            <PageInput
+              placeholder="..."
+              type="number"
+              min={1}
+              max={pageOptions.length}
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+            <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+              <Icon as={FaAngleRight} />
+            </PagBtn>
+            <PagBtn
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              <Icon as={FaAngleDoubleRight} />
+            </PagBtn>
+          </PagBtns>
+          <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} />
+        </Pagination>
+      )}
     </Wrapper>
   );
 };
@@ -195,7 +265,11 @@ export default TopStreamersLeaderboard;
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 100vh;
+`;
+
+const MinWrapper = styled.div<{ pageSize: number }>`
+  min-height: calc(66px + 74px * ${({ pageSize }) => pageSize});
+  width: 100%;
 `;
 
 const Controllers = styled.div`
@@ -220,7 +294,7 @@ const Table = styled.table`
   border-collapse: collapse;
 
   .wide {
-    width: 5%;
+    width: 60px;
   }
 
   .active {

@@ -18,7 +18,7 @@ export interface ILeaderboard {
   columns: {
     Header: string;
     accessor: string;
-    collapse: boolean;
+    collapse?: boolean;
   }[];
 }
 
@@ -35,43 +35,61 @@ const Leaderboard: React.FC<ILeaderboard> = ({ title, data, columns }) => {
           {title}
         </Text>
       )}
-      <Table {...getTableProps()}>
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: any) => (
-                <TableHeader
-                  {...column.getHeaderProps({
-                    className: column.collapse ? "collapse" : "",
-                  })}
-                >
-                  {column.render("Header")}
-                </TableHeader>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell: any) => {
-                  return (
-                    <TableData
-                      {...cell.getCellProps({
-                        className: cell.column.collapse ? "collapse" : "",
-                      })}
-                    >
-                      {cell.render("Cell")}
-                    </TableData>
-                  );
-                })}
+      <Wrap>
+        <Table {...getTableProps()}>
+          <TableHead>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column: any) => (
+                  <TableHeader
+                    {...column.getHeaderProps({
+                      className: column.collapse ? "collapse" : "",
+                    })}
+                    {...column.getHeaderProps({
+                      className: column.className,
+                      style: {
+                        // minWidth: column.minWidth,
+                        // maxWidth: column.maxWidth,
+                        width: column.width,
+                      },
+                    })}
+                  >
+                    {column.render("Header")}
+                  </TableHeader>
+                ))}
               </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHead>
+          <TableBody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <TableRow {...row.getRowProps()}>
+                  {row.cells.map((cell: any) => {
+                    return (
+                      <TableData
+                        {...cell.getCellProps({
+                          className: cell.column.collapse ? "collapse" : "",
+                        })}
+                        {...cell.getCellProps({
+                          className: cell.column.className,
+                          style: {
+                            // minWidth: cell.column.minWidth,
+                            // maxWidth: cell.column.maxWidth,
+                            width: cell.column.width,
+                          },
+                        })}
+                      >
+                        {cell.render("Cell")}
+                      </TableData>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Wrap>
     </Wrapper>
   );
 };
@@ -83,4 +101,11 @@ export default Leaderboard;
 const Wrapper = styled.div`
   display: block;
   max-width: 100%;
+`;
+
+const Wrap = styled.div`
+  display: block;
+  max-width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 `;

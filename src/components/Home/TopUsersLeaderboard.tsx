@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { User } from "../../types/types";
 import Button from "../Button";
 import Leaderboard from "../Leaderboard/Leaderboard";
+import TableText from "../Leaderboard/TableText";
 // Types -------------------------------------------------------------------------
 
 interface Props {
@@ -16,22 +17,33 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   const columns = useMemo(
     () => [
       {
-        Header: "-",
+        Header: "",
         accessor: "position",
         collapse: true,
+        className: "place",
+        width: 60,
       },
       {
         Header: "Nick",
         accessor: "name",
-        collapse: false,
+        className: "name",
+        width: "100%",
+        // @ts-ignore
+        Cell: ({ value }) => {
+          return <TableText text={value} />;
+        },
       },
       {
-        Header: "Count",
+        Header: "Messages\nCount",
         accessor: "count",
+        className: "count",
         collapse: true,
+        // width: ,
+        minWidth: 100,
+        maxWidth: 150,
         // @ts-ignore
-        Cell: ({ row: { original } }) => {
-          return original.count.toLocaleString("en-US");
+        Cell: ({ value }) => {
+          return value.toLocaleString("en-US");
         },
       },
     ],
@@ -41,7 +53,9 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   return (
     <Wrapper>
       <Leaderboard columns={columns} data={data} title="Top Users" />
-      <Button>See more</Button>
+      <Button height={50} fontSize={"md"}>
+        Full Leaderboard
+      </Button>
     </Wrapper>
   );
 };

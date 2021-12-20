@@ -5,7 +5,7 @@ import Text from "../Text";
 
 interface Props {
   text: string;
-  emote: string;
+  emote?: string;
 }
 
 // Component ---------------------------------------------------------------------
