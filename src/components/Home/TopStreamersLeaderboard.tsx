@@ -61,9 +61,11 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
               <Link href={`/streamer/${original.name.toLowerCase()}`}>
                 <Avatar mr={3} url={original.avatar} />
               </Link>
-              <Text as={"span"} fontWeight={500}>
-                {original.name}
-              </Text>
+              <Link href={`/streamer/${original.name.toLowerCase()}`}>
+                <Text as={"span"} fontWeight={500}>
+                  {original.name}
+                </Text>
+              </Link>
             </>
           );
         },
@@ -160,7 +162,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}
           />
-          <MonthSelection />
+          <MonthSelection type={"streamers"} />
         </Controllers>
       )}
       {controlls && (
@@ -312,7 +314,7 @@ const MinWrapper = styled.div<{ pageSize: number }>`
 `;
 
 const Controllers = styled.div`
-  margin: 25px 0;
+  margin: 1.5rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

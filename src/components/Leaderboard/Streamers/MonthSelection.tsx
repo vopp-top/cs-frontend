@@ -4,12 +4,15 @@ import { FaCaretDown } from "react-icons/fa";
 import OutsideClickHandler from "react-outside-click-handler";
 import styled from "styled-components";
 import Icon from "../../Icon";
+import { SearchTypes } from "../Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
 
-interface Props {}
+interface Props {
+  type: SearchTypes;
+}
 
 // Component ---------------------------------------------------------------------
-const MonthSelection: React.FC<Props> = () => {
+const MonthSelection: React.FC<Props> = ({ type }) => {
   const router = Router;
   const options = ["November 2021", "October 2021"];
   const [active, setActive] = useState(false);
@@ -35,7 +38,7 @@ const MonthSelection: React.FC<Props> = () => {
                 onClick={() => {
                   const split = option.toLowerCase().split(" ");
                   const url = split[0] + split[1].slice(-2);
-                  router.push(`/leaderboards/streamers/${url}`);
+                  router.push(`/leaderboards/${type}/${url}`);
                   setActive(!active);
                 }}
               >

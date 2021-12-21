@@ -1,30 +1,29 @@
 import React, { useEffect } from "react";
 import {
   FaAngleDoubleLeft,
+  FaAngleDoubleRight,
   FaAngleLeft,
   FaAngleRight,
-  FaAngleDoubleRight,
 } from "react-icons/fa";
 import { usePagination, useTable } from "react-table";
 import styled from "styled-components";
 import {
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableData,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "../../styles/LeaderboardStyles";
 import {
-  Pagination,
-  PagBtns,
   PagBtn,
+  PagBtns,
   PageInput,
+  Pagination,
 } from "../../styles/PaginationStyles";
-import { User } from "../../types/types";
 import Icon from "../Icon";
 import Text from "../Text";
-import PaginationSelection from "./Streamers/PaginationSelection";
+import MonthSelection from "./Streamers/MonthSelection";
 import SearchUser, { SearchTypes } from "./Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
 
@@ -98,7 +97,10 @@ const Leaderboard: React.FC<ILeaderboard> = ({
       )}
       {pagination && searchType && (
         <>
-          <SearchUser gotoPage={gotoPage} type={searchType!} />
+          <Controllers>
+            <SearchUser gotoPage={gotoPage} type={searchType!} />
+            <MonthSelection type={searchType} />
+          </Controllers>
           <Pagination>
             <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
               Page{" "}
@@ -253,4 +255,12 @@ const Wrap = styled.div`
   max-width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
+`;
+
+const Controllers = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  margin-top: 1.5rem;
 `;

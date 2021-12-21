@@ -8,6 +8,7 @@ import Avatar from "../../components/Avatar";
 import Heading from "../../components/Heading";
 import Icon from "../../components/Icon";
 import Loader from "../../components/Loader";
+import ProfileStats from "../../components/Profile/ProfileStats";
 import ProfileTopEmotesLeaderboard from "../../components/Profile/ProfileTopEmotesLeaderboard";
 import ProfileTopUsersLeaderboard from "../../components/Profile/ProfileTopUsersLeaderboard";
 import Text from "../../components/Text";
@@ -36,12 +37,12 @@ const Profile: NextPage<Props> = ({ data }) => {
   }, []);
 
   if (loading) return <Loader />;
-  else if (!data) return <Heading>Not found</Heading>;
+  else if (!data) return <Heading textColor={"error"}>Not found</Heading>;
 
   return (
     <Wrapper>
       <HeadingContainer>
-        <Heading textColor={"main"}>{data.name}</Heading>
+        <Heading textColor={"main"}>{data.name} </Heading>
         <Info>
           <a target={"_blank"} href={`https://www.twitch.tv/${data.name}`}>
             <Avatar url={data.avatar} size={160} />
@@ -56,6 +57,7 @@ const Profile: NextPage<Props> = ({ data }) => {
           </Socials>
         </Info>
       </HeadingContainer>
+      <ProfileStats data={data} />
       <Leaderboards>
         <ProfileTopUsersLeaderboard users={data.users} />
         <ProfileTopEmotesLeaderboard emotes={data.emotes} />
@@ -96,6 +98,7 @@ export const Leaderboards = styled.div`
 
 const HeadingContainer = styled.div`
   position: relative;
+  margin-bottom: 80px;
 `;
 
 const Info = styled.div`

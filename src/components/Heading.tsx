@@ -26,7 +26,7 @@ export default Heading;
 
 const Wrapper = styled.div<Props>`
   width: 100%;
-  height: 275px;
+  height: 225px;
   background-color: ${({ theme }) => theme.colors.sub};
   display: flex;
   justify-content: center;
@@ -45,5 +45,4 @@ const Wrapper = styled.div<Props>`
 
 Wrapper.defaultProps = {
   textColor: "white",
-  mb: "160px",
 };

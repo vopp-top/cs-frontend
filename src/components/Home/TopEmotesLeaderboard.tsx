@@ -1,5 +1,7 @@
+import Link from "next/link";
 import React, { useMemo } from "react";
 import styled from "styled-components";
+import { month } from "../../constants/currentMonth";
 import { Emote } from "../../types/types";
 import Button from "../Button";
 import Leaderboard from "../Leaderboard/Leaderboard";
@@ -53,9 +55,11 @@ const TopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
   return (
     <Wrapper>
       <Leaderboard title="Top Emotes" columns={columns} data={data} />
-      <Button height={50} fontSize={"md"}>
-        Full Leaderboard
-      </Button>
+      <Link href={`/leaderboards/emotes/${month()}`}>
+        <Button height={50} fontSize={"md"}>
+          Full Leaderboard
+        </Button>
+      </Link>
     </Wrapper>
   );
 };

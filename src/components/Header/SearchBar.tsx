@@ -12,8 +12,10 @@ const SearchBar: React.FC<Props> = () => {
   const router = useRouter();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!e.currentTarget.value) return;
+
     if (e.key === "Enter") {
-      router.push(`/streamer/${e.currentTarget.value}`);
+      router.push(`/streamer/${e.currentTarget.value.toLowerCase()}`);
       e.currentTarget.value = "";
     }
   };

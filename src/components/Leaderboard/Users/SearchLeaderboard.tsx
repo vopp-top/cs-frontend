@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 import Icon from "../../Icon";
 // Types -------------------------------------------------------------------------
 
-export type SearchTypes = "users" | "emotes";
+export type SearchTypes = "users" | "emotes" | "streamers";
 
 interface Props {
   gotoPage: any;
@@ -68,10 +68,8 @@ const Wrapper = styled.div<{ err: boolean }>`
   border: 2px solid transparent;
   overflow: hidden;
   display: flex;
-  padding: 0 16px;
+  padding: 0 1rem;
   align-items: center;
-  height: 50px;
-  margin-top: 1rem;
   min-width: 300px;
   width: 300px;
   transition: 150ms ease;

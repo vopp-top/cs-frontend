@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header/Header";
-import { device } from "../themes/theme";
 // Types -------------------------------------------------------------------------
 
 interface Props {}
@@ -13,7 +12,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     <Wrapper>
       <Header />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </Wrapper>
   );
 };

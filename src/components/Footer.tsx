@@ -1,12 +1,27 @@
+import Link from "next/link";
 import React from "react";
+import { FaGithub } from "react-icons/fa";
 import styled from "styled-components";
+import Icon from "./Icon";
 // Types -------------------------------------------------------------------------
 
 interface Props {}
 
 // Component ---------------------------------------------------------------------
 const Footer: React.FC<Props> = () => {
-  return <Wrapper>siema</Wrapper>;
+  return (
+    <Wrapper>
+      <a target={"_blank"} href={"https://github.com/vopp-top"}>
+        <Box>
+          <Icon as={FaGithub} mr={2} />
+          GitHub
+        </Box>
+      </a>
+      <Link href={"/privacy_policy"}>
+        <Box>Privacy Policy</Box>
+      </Link>
+    </Wrapper>
+  );
 };
 
 export default Footer;
@@ -16,5 +31,20 @@ export default Footer;
 const Wrapper = styled.div`
   width: 100%;
   margin-top: 72px;
-  border-top: 1px solid black;
+  border-top: 1px solid ${({ theme }) => theme.colors.subHover};
+  color: ${({ theme }) => theme.colors.textSub};
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  a {
+    color: ${({ theme }) => theme.colors.textSub};
+    text-decoration: none;
+  }
+`;
+
+const Box = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;

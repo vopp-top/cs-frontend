@@ -3,6 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
+import FrequentlyAskedQuestions from "../components/Home/FrequentlyAskedQuestions";
 import TopEmotesLeaderboard from "../components/Home/TopEmotesLeaderboard";
 import TopStreamersLeaderboard from "../components/Home/TopStreamersLeaderboard";
 import TopUsersLeaderboard from "../components/Home/TopUsersLeaderboard";
@@ -25,6 +26,7 @@ const Home: NextPage<Props> = ({ data }) => {
 
   return (
     <Wrapper>
+      {/* <Heading>How we collect data</Heading> */}
       <Heading mb={50}>
         Leaderboard{" "}
         <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
@@ -49,6 +51,7 @@ const Home: NextPage<Props> = ({ data }) => {
           Full Leaderboard
         </Button>
       </Link>
+      {/* <FrequentlyAskedQuestions /> */}
     </Wrapper>
   );
 };
