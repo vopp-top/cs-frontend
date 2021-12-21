@@ -30,6 +30,7 @@ const TopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
         width: "100%",
         collapse: false,
         // @ts-ignore
+
         Cell: ({ value, row: { original } }) => {
           return <TableText text={value} emote={original.url} />;
         },

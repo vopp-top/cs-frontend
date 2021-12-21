@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import styled from "styled-components";
 import { User } from "../../types/types";
 import Leaderboard from "../Leaderboard/Leaderboard";
+import TableText from "../Leaderboard/TableText";
 // Types -------------------------------------------------------------------------
 
 interface Props {
@@ -15,22 +16,32 @@ const ProfileTopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   const columns = useMemo(
     () => [
       {
-        Header: "-",
+        Header: "",
         accessor: "position",
-        collapse: true,
+        className: "place",
+        width: 60,
       },
       {
         Header: "Nick",
         accessor: "name",
-        collapse: false,
+        className: "name",
+        width: "100%",
+        // @ts-ignore
+        Cell: ({ value }) => {
+          return <TableText text={value} />;
+        },
       },
       {
-        Header: "Count",
+        Header: "Messages\nCount",
         accessor: "count",
+        className: "count",
         collapse: true,
+        // width: ,
+        minWidth: 100,
+        maxWidth: 150,
         // @ts-ignore
-        Cell: ({ row: { original } }) => {
-          return original.count.toLocaleString("en-US");
+        Cell: ({ value }) => {
+          return value.toLocaleString("en-US");
         },
       },
     ],

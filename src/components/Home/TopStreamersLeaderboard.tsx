@@ -163,6 +163,45 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
           <MonthSelection />
         </Controllers>
       )}
+      {controlls && (
+        <Pagination>
+          <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </Text>
+          <PagBtns>
+            <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              <Icon as={FaAngleDoubleLeft} />
+            </PagBtn>
+            <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
+              <Icon as={FaAngleLeft} />
+            </PagBtn>
+            <PageInput
+              placeholder="..."
+              type="number"
+              min={1}
+              max={pageOptions.length}
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+            <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+              <Icon as={FaAngleRight} />
+            </PagBtn>
+            <PagBtn
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              <Icon as={FaAngleDoubleRight} />
+            </PagBtn>
+          </PagBtns>
+          <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} />
+        </Pagination>
+      )}
       <MinWrapper pageSize={pageSize}>
         <Table {...getTableProps()}>
           <col span={1} className="wide" />

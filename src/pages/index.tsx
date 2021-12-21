@@ -36,7 +36,7 @@ const Home: NextPage<Props> = ({ data }) => {
         <TopEmotesLeaderboard emotes={data.emotes} />
       </Leaderboards>
       <Link href={`/leaderboards/streamers/${month()}`}>
-        <Heading mt={50} mb={0}>
+        <Heading mt={50} mb={50}>
           Top Streamers{" "}
           <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
             /November21

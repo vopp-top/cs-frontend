@@ -25,6 +25,7 @@ import { User } from "../../types/types";
 import Icon from "../Icon";
 import Text from "../Text";
 import PaginationSelection from "./Streamers/PaginationSelection";
+import SearchUser, { SearchTypes } from "./Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
 
 export interface ILeaderboard {
@@ -39,6 +40,7 @@ export interface ILeaderboard {
   loading?: boolean;
   pageCount?: number;
   pagination?: boolean;
+  searchType?: SearchTypes;
 }
 
 // Component ---------------------------------------------------------------------
@@ -49,7 +51,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
   columns,
   fetchData,
   pageCount: controlledPageCount,
-  loading,
+  searchType,
 }) => {
   const {
     getTableProps,
@@ -94,44 +96,50 @@ const Leaderboard: React.FC<ILeaderboard> = ({
           {title}
         </Text>
       )}
-      {pagination && (
-        <Pagination>
-          <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
-            Page{" "}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>{" "}
-          </Text>
-          <PagBtns>
-            <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-              <Icon as={FaAngleDoubleLeft} />
-            </PagBtn>
-            <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
-              <Icon as={FaAngleLeft} />
-            </PagBtn>
-            <PageInput
-              placeholder="..."
-              type="number"
-              min={1}
-              max={pageOptions.length}
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
-              }}
-            />
-            <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
-              <Icon as={FaAngleRight} />
-            </PagBtn>
-            <PagBtn
-              onClick={() => gotoPage(pageCount - 1)}
-              disabled={!canNextPage}
-            >
-              <Icon as={FaAngleDoubleRight} />
-            </PagBtn>
-          </PagBtns>
-          {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
-        </Pagination>
+      {pagination && searchType && (
+        <>
+          <SearchUser gotoPage={gotoPage} type={searchType!} />
+          <Pagination>
+            <Text as={"span"} fontSize={"sm"} textColor={"#d9d9d9"}>
+              Page{" "}
+              <strong>
+                {pageIndex + 1} of {pageOptions.length}
+              </strong>{" "}
+            </Text>
+            <PagBtns>
+              <PagBtn onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                <Icon as={FaAngleDoubleLeft} />
+              </PagBtn>
+              <PagBtn
+                onClick={() => previousPage()}
+                disabled={!canPreviousPage}
+              >
+                <Icon as={FaAngleLeft} />
+              </PagBtn>
+              <PageInput
+                placeholder="..."
+                type="number"
+                min={1}
+                max={pageOptions.length}
+                defaultValue={pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  gotoPage(page);
+                }}
+              />
+              <PagBtn onClick={() => nextPage()} disabled={!canNextPage}>
+                <Icon as={FaAngleRight} />
+              </PagBtn>
+              <PagBtn
+                onClick={() => gotoPage(pageCount - 1)}
+                disabled={!canNextPage}
+              >
+                <Icon as={FaAngleDoubleRight} />
+              </PagBtn>
+            </PagBtns>
+            {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
+          </Pagination>
+        </>
       )}
       <Wrap>
         <Table {...getTableProps()}>

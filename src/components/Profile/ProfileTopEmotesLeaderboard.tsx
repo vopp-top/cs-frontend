@@ -17,26 +17,33 @@ const ProfileTopEmotesLeaderboard: React.FC<Props> = ({ emotes }) => {
   const columns = useMemo(
     () => [
       {
-        Header: "-",
+        Header: "",
         accessor: "position",
+        className: "place",
         collapse: true,
+        width: 60,
       },
       {
         Header: "Emote",
         accessor: "name",
+        className: "name",
+        width: "100%",
         collapse: false,
         // @ts-ignore
-        Cell: ({ row: { original } }) => {
-          return <TableText text={original.name} emote={original.url} />;
+
+        Cell: ({ value, row: { original } }) => {
+          return <TableText text={value} emote={original.url} />;
         },
       },
       {
-        Header: "Count",
+        Header: "Messages\nCount",
         accessor: "count",
+        className: "count",
         collapse: true,
+        // width: 60,
         // @ts-ignore
-        Cell: ({ row: { original } }) => {
-          return original.count.toLocaleString("en-US");
+        Cell: ({ value }) => {
+          return value.toLocaleString("en-US");
         },
       },
     ],

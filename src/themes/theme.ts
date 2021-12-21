@@ -16,6 +16,7 @@ export const theme = {
     textSub: "#f2f2f280",
     text: "#f2f2f2",
     background: "#181818",
+    error: "#ff5555",
   },
   font: `'Sora', sans-serif`,
   fontSizes: {

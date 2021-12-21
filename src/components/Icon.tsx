@@ -24,6 +24,8 @@ export default Icon;
 const Wrapper = styled.div<Props>`
   display: flex;
   cursor: pointer;
+  transition: 50ms ease;
+
   ${size}
   ${space}
   ${color}

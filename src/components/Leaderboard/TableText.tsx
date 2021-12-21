@@ -13,7 +13,7 @@ const TableText: React.FC<Props> = ({ text, emote }) => {
   if (emote && text.length > 20) text = text.slice(0, 16) + "...";
 
   return (
-    <Wrapper>
+    <Wrapper id={text}>
       {emote && (
         <Emote aria-label={emote}>
           <img src={emote} alt={text} />

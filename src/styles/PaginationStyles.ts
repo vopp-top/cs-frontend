@@ -4,7 +4,7 @@ export const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin: 1rem 0;
   position: relative;
   height: 40px;
 `;

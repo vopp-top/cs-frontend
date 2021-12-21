@@ -2,8 +2,10 @@ import { GetServerSideProps } from "next";
 import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { server } from "../..";
+import Heading from "../../../components/Heading";
 import Leaderboard from "../../../components/Leaderboard/Leaderboard";
 import TableText from "../../../components/Leaderboard/TableText";
+import SearchUser from "../../../components/Leaderboard/Users/SearchLeaderboard";
 import { month } from "../../../constants/currentMonth";
 import { User } from "../../../types/types";
 // Types -------------------------------------------------------------------------
@@ -15,7 +17,7 @@ interface Props {
 // Component ---------------------------------------------------------------------
 const TopUsersPage: React.FC<Props> = ({ users }) => {
   const [data, setData] = React.useState(users);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [pageCount, setPageCount] = React.useState(0);
   const fetchIdRef = React.useRef(0);
 
@@ -66,23 +68,29 @@ const TopUsersPage: React.FC<Props> = ({ users }) => {
         .then((res) => res.json())
         .catch((err) => console.log(err));
 
-      setData(res.users);
-      setPageCount(res.maxIndex);
+      if (res) {
+        setData(res.users);
+        setPageCount(res.maxIndex);
+      }
 
       setLoading(false);
-      console.log(res);
     }
   }, []);
 
   return (
-    <Leaderboard
-      data={data}
-      columns={columns}
-      fetchData={fetchData}
-      pageCount={pageCount}
-      loading={loading}
-      pagination={true}
-    />
+    <>
+      <Heading mb={0}>Top Users</Heading>
+      {/* <SearchUser /> */}
+      <Leaderboard
+        searchType="users"
+        data={data}
+        columns={columns}
+        fetchData={fetchData}
+        pageCount={pageCount}
+        loading={loading}
+        pagination={true}
+      />
+    </>
   );
 };
 
