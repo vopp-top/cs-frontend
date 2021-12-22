@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaAngleDoubleLeft,
   FaAngleDoubleRight,
@@ -52,6 +52,9 @@ const Leaderboard: React.FC<ILeaderboard> = ({
   pageCount: controlledPageCount,
   searchType,
 }) => {
+  const [query, setQuery] = useState<undefined | string>(undefined);
+  const [err, setErr] = useState(false);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -66,9 +69,8 @@ const Leaderboard: React.FC<ILeaderboard> = ({
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
     // @ts-ignore
-    state: { pageIndex, pageSize },
+    state: { pageIndex },
   } =
     // @ts-ignore
     useTable(
@@ -85,8 +87,8 @@ const Leaderboard: React.FC<ILeaderboard> = ({
 
   useEffect(() => {
     if (!fetchData) return;
-    fetchData({ pageIndex, pageSize });
-  }, [fetchData, pageIndex, pageSize]);
+    fetchData({ pageIndex, query, setErr });
+  }, [fetchData, pageIndex, query]);
 
   return (
     <Wrapper>
@@ -98,7 +100,13 @@ const Leaderboard: React.FC<ILeaderboard> = ({
       {pagination && searchType && (
         <>
           <Controllers>
-            <SearchUser gotoPage={gotoPage} type={searchType!} />
+            <SearchUser
+              // gotoPage={gotoPage}
+              type={searchType!}
+              setErr={setErr}
+              err={err}
+              setQuery={setQuery}
+            />
             <MonthSelection type={searchType} />
           </Controllers>
           <Pagination>
@@ -123,7 +131,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
                 type="number"
                 min={1}
                 max={pageOptions.length}
-                defaultValue={pageIndex + 1}
+                value={pageIndex + 1}
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   gotoPage(page);

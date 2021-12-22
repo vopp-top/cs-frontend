@@ -26,7 +26,7 @@ const ProfileStats: React.FC<Props> = ({ data }) => {
       </Item>
       <Item>
         <Count>{data.time_count.toLocaleString()}</Count>
-        <Text>
+        <Text textAlign={"center"}>
           total stream time
           <br />
           <Text as={"span"} fontSize={"xxs"}>
@@ -69,7 +69,7 @@ const Item = styled.div`
 
 const Count = styled.div`
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSizes.xxxl};
+  font-size: ${({ theme }) => theme.fontSizes.xxl};
   color: ${({ theme }) => theme.colors.main};
   font-weight: 500;
 `;

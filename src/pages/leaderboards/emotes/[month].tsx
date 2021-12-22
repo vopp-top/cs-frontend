@@ -1,23 +1,23 @@
 import { GetServerSideProps } from "next";
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { server } from "../..";
 import Heading from "../../../components/Heading";
 import Leaderboard from "../../../components/Leaderboard/Leaderboard";
 import TableText from "../../../components/Leaderboard/TableText";
-import { month } from "../../../constants/currentMonth";
 import { Emote } from "../../../types/types";
 // Types -------------------------------------------------------------------------
 
 interface Props {
   emotes: Emote[];
+  count: number;
 }
 
 // Component ---------------------------------------------------------------------
-const TopEmotesPage: React.FC<Props> = ({ emotes }) => {
+const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
+  console.log(count);
   const [data, setData] = React.useState(emotes);
   const [loading, setLoading] = React.useState(true);
-  const [pageCount, setPageCount] = React.useState(0);
+  const [pageCount, setPageCount] = React.useState(count);
   const fetchIdRef = React.useRef(0);
   // const data = useMemo(() => emotes, [emotes]);
 
@@ -57,22 +57,30 @@ const TopEmotesPage: React.FC<Props> = ({ emotes }) => {
     []
   );
 
-  const fetchData = useCallback(async ({ pageIndex }) => {
+  const fetchData = useCallback(async ({ pageIndex, query, setErr }) => {
     const fetchId = ++fetchIdRef.current;
     setLoading(true);
 
     if (fetchId === fetchIdRef.current) {
-      const res = await fetch(`https://capi.vopp.top/emotes/page/${pageIndex}`)
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
+      console.log("hello");
+      try {
+        const res = await fetch(
+          `https://capi.vopp.top/emotes/page/${pageIndex}?name=${query || ""}`
+        ).then((res) => {
+          if (res.status === 404) throw new Error();
+          return res.json();
+        });
 
-      if (res) {
-        setData(res.emotes);
-        setPageCount(res.maxIndex);
+        if (res) {
+          setData(res.emotes);
+          setPageCount(res.maxIndex + 1);
+        }
+      } catch {
+        setErr(true);
       }
-
-      setLoading(false);
     }
+
+    setLoading(false);
   }, []);
 
   return (
@@ -92,11 +100,11 @@ const TopEmotesPage: React.FC<Props> = ({ emotes }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { emotes } = await fetch(`https://capi.vopp.top/emotes/page/0`)
+  const res = await fetch(`https://capi.vopp.top/emotes/page/0`)
     .then((res) => res.json())
     .catch((err) => console.log(err));
 
-  return { props: { emotes } };
+  return { props: { emotes: res.emotes, count: res.maxIndex + 1 } };
 };
 
 export default TopEmotesPage;

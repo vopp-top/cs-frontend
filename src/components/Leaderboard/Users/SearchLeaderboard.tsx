@@ -1,5 +1,11 @@
 import router from "next/router";
-import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { FaExclamationTriangle, FaSearch } from "react-icons/fa";
 import styled, { css } from "styled-components";
 import Icon from "../../Icon";
@@ -8,46 +14,33 @@ import Icon from "../../Icon";
 export type SearchTypes = "users" | "emotes" | "streamers";
 
 interface Props {
-  gotoPage: any;
+  gotoPage?: any;
   type: SearchTypes;
+  setQuery: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setErr: React.Dispatch<React.SetStateAction<boolean>>;
+  err: boolean;
 }
 
 // Component ---------------------------------------------------------------------
-const SearchUser: React.FC<Props> = ({ gotoPage, type }) => {
-  const [err, setErr] = useState(false);
-  const [cooldown, setCooldown] = useState(false);
+const SearchUser: React.FC<Props> = ({ type, setQuery, err, setErr }) => {
+  const [val, setVal] = useState("");
 
-  const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (cooldown) return;
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setErr(false);
-
-    if (e.key === "Enter") {
-      const val = e.currentTarget.value.toLowerCase();
-      const res = await fetch(`https://capi.vopp.top/${type}/${val}`)
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
-
-      if (!res || res.code === 404) setErr(true);
-
-      setCooldown(true);
-      gotoPage(res.page_index);
-    }
+    setVal(e.target.value.toLowerCase());
   };
 
   useEffect(() => {
-    if (!cooldown) return;
-    const myInterval = setInterval(() => setCooldown(false), 500);
-
+    const myInterval = setInterval(() => setQuery(val), 350);
     return () => clearInterval(myInterval);
-  }, [cooldown]);
+  }, [val]);
 
-  console.log(type.slice(type.length - 1));
   return (
     <Wrapper err={err}>
       <Input
         type={"search"}
         placeholder={`Search for ${type.slice(0, -1)}`}
-        onKeyDown={handleKeyDown}
+        onChange={handleChange}
       />
       <Icon
         textColor={"inherit"}
@@ -64,7 +57,7 @@ export default SearchUser;
 
 const Wrapper = styled.div<{ err: boolean }>`
   background-color: ${({ theme }) => theme.colors.subHover};
-  border-radius: ${({ theme }) => theme.rounded.sm};
+  border-radius: ${({ theme }) => theme.rounded.md};
   border: 2px solid transparent;
   overflow: hidden;
   display: flex;

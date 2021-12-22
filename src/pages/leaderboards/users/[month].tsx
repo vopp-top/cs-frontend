@@ -1,24 +1,22 @@
 import { GetServerSideProps } from "next";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { server } from "../..";
 import Heading from "../../../components/Heading";
 import Leaderboard from "../../../components/Leaderboard/Leaderboard";
 import TableText from "../../../components/Leaderboard/TableText";
-import SearchUser from "../../../components/Leaderboard/Users/SearchLeaderboard";
-import { month } from "../../../constants/currentMonth";
 import { User } from "../../../types/types";
 // Types -------------------------------------------------------------------------
 
 interface Props {
   users: User[];
+  count: number;
 }
 
 // Component ---------------------------------------------------------------------
-const TopUsersPage: React.FC<Props> = ({ users }) => {
+const TopUsersPage: React.FC<Props> = ({ users, count }) => {
   const [data, setData] = React.useState(users);
   const [loading, setLoading] = React.useState(true);
-  const [pageCount, setPageCount] = React.useState(0);
+  const [pageCount, setPageCount] = React.useState(count);
   const fetchIdRef = React.useRef(0);
 
   // const data = useMemo(() => users, [users]);
@@ -59,28 +57,35 @@ const TopUsersPage: React.FC<Props> = ({ users }) => {
     []
   );
 
-  const fetchData = useCallback(async ({ pageIndex }) => {
+  const fetchData = useCallback(async ({ pageIndex, query, setErr }) => {
     const fetchId = ++fetchIdRef.current;
     setLoading(true);
 
     if (fetchId === fetchIdRef.current) {
-      const res = await fetch(`https://capi.vopp.top/users/page/${pageIndex}`)
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
+      console.log("hello");
+      try {
+        const res = await fetch(
+          `https://capi.vopp.top/users/page/${pageIndex}?name=${query || ""}`
+        ).then((res) => {
+          if (res.status === 404) throw new Error();
+          return res.json();
+        });
 
-      if (res) {
-        setData(res.users);
-        setPageCount(res.maxIndex);
+        if (res) {
+          setData(res.users);
+          setPageCount(res.maxIndex + 1);
+        }
+      } catch {
+        setErr(true);
       }
-
-      setLoading(false);
     }
+
+    setLoading(false);
   }, []);
 
   return (
     <>
       <Heading mb={0}>Top Users</Heading>
-      {/* <SearchUser /> */}
       <Leaderboard
         searchType="users"
         data={data}
@@ -95,11 +100,11 @@ const TopUsersPage: React.FC<Props> = ({ users }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { users } = await fetch(`https://capi.vopp.top/users/page/0`)
+  const res = await fetch(`https://capi.vopp.top/users/page/0`)
     .then((res) => res.json())
     .catch((err) => console.log(err));
 
-  return { props: { users } };
+  return { props: { users: res.users, count: res.maxIndex + 1 } };
 };
 
 export default TopUsersPage;
