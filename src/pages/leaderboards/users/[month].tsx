@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import Heading from "../../../components/Heading";
@@ -84,6 +85,10 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
 
   return (
     <>
+      <Head>
+        <title>chat.vopp.top | Top Users</title>
+        <meta name="description" content="Users Leaderboard" />
+      </Head>
       <Heading mb={0}>Top Users</Heading>
       <Leaderboard
         searchType="users"

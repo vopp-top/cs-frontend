@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  font-family: Helvetica, sans-serif;
+  font-family: Roboto, sans-serif;
 `;
 
 const Emote = styled.div`

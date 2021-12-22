@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaTwitch } from "react-icons/fa";
@@ -41,6 +42,14 @@ const Profile: NextPage<Props> = ({ data }) => {
 
   return (
     <Wrapper>
+      <Head>
+        <title>chat.vopp.top | {data.name}</title>
+        <meta name="description" content={`Twitch stats for ${data.name}`} />
+        <meta property="og:image" content={data.avatar} />
+        <meta name="twitter:image" content={data.avatar} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={data.name} />
+      </Head>
       <HeadingContainer>
         <Heading textColor={"main"}>{data.name} </Heading>
         <Info>

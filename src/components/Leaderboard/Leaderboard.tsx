@@ -36,7 +36,6 @@ export interface ILeaderboard {
     collapse?: boolean;
   }[];
   fetchData?: ({}: any) => any;
-  loading?: boolean;
   pageCount?: number;
   pagination?: boolean;
   searchType?: SearchTypes;

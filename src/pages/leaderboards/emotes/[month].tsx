@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import Heading from "../../../components/Heading";
@@ -15,10 +16,8 @@ interface Props {
 // Component ---------------------------------------------------------------------
 const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
   const [data, setData] = React.useState(emotes);
-  const [loading, setLoading] = React.useState(true);
   const [pageCount, setPageCount] = React.useState(count);
   const fetchIdRef = React.useRef(0);
-  // const data = useMemo(() => emotes, [emotes]);
 
   const columns = useMemo(
     () => [
@@ -58,7 +57,6 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
 
   const fetchData = useCallback(async ({ pageIndex, query, setErr }) => {
     const fetchId = ++fetchIdRef.current;
-    setLoading(true);
 
     if (fetchId === fetchIdRef.current) {
       try {
@@ -77,12 +75,14 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
         setErr(true);
       }
     }
-
-    setLoading(false);
   }, []);
 
   return (
     <>
+      <Head>
+        <title>chat.vopp.top | Top Emotes</title>
+        <meta name="description" content="Emotes Leaderboard" />
+      </Head>
       <Heading mb={0}>Top Emotes</Heading>
       <Leaderboard
         searchType="emotes"
@@ -90,7 +90,6 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
         columns={columns}
         fetchData={fetchData}
         pageCount={pageCount}
-        loading={loading}
         pagination={true}
       />
     </>

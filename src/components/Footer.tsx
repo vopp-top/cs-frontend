@@ -3,6 +3,7 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import styled from "styled-components";
 import Icon from "./Icon";
+import Text from "./Text";
 // Types -------------------------------------------------------------------------
 
 interface Props {}
@@ -17,6 +18,7 @@ const Footer: React.FC<Props> = () => {
           GitHub
         </Box>
       </a>
+      <Text fontSize={"xs"}>chat.vopp.top is not affiliated with Twitch.</Text>
       <Link href={"/privacy_policy"}>
         <Box>Privacy Policy</Box>
       </Link>

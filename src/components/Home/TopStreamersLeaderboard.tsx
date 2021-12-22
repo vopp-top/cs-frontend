@@ -62,9 +62,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
                 <Avatar mr={3} url={original.avatar} />
               </Link>
               <Link href={`/streamer/${original.name.toLowerCase()}`}>
-                <Text as={"span"} fontWeight={500}>
-                  {original.name}
-                </Text>
+                <Text as={"span"}>{original.name}</Text>
               </Link>
             </>
           );
@@ -403,8 +401,7 @@ const TableData = styled.td`
 
   &.streamer {
     color: white;
-    font-family: Helvetica, sans-serif;
-    min-width: 225px;
+    font-family: Roboto, sans-serif;
     display: flex;
     align-items: center;
     padding: 15px 10px;

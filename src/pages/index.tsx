@@ -1,4 +1,5 @@
 import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import Button from "../components/Button";
@@ -26,7 +27,9 @@ const Home: NextPage<Props> = ({ data }) => {
 
   return (
     <Wrapper>
-      {/* <Heading>How we collect data</Heading> */}
+      <Head>
+        <title>chat.vopp.top | Home</title>
+      </Head>
       <Heading mb={50}>
         Leaderboard{" "}
         <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>

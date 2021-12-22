@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 import styled from "styled-components";
 import Heading from "../components/Heading";
@@ -9,6 +10,10 @@ interface Props {}
 const PrivacyPolicyPage: React.FC<Props> = () => {
   return (
     <Wrapper>
+      <Head>
+        <title>Privacy Policy</title>
+        <meta name="description" content="Privacy Policy for vopp.top" />
+      </Head>
       <Heading textColor={"main"} mb={4}>
         Privacy Policy for vopp.top
       </Heading>

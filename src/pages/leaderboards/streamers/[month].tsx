@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React from "react";
 import { server } from "../..";
 import Heading from "../../../components/Heading";
@@ -17,6 +18,10 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
 
   return (
     <>
+      <Head>
+        <title>chat.vopp.top | Top Streamers</title>
+        <meta name="description" content="Streamers Leaderboard" />
+      </Head>
       <Heading mb={0}>Top Streamers</Heading>
       <TopStreamersLeaderboard controlls={true} streamers={streamers} />
     </>

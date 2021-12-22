@@ -24,14 +24,14 @@ const FrequentlyAskedQuestions: React.FC<Props> = () => {
     },
     {
       question: `Why my name/emote is not showing up?`,
-      answer: `users, who at least sent 100 messages, emotes, which was used at least 100 times. So this user/emote probably did not met the given condition.`,
+      answer: `Only users who sent at least 100 messages are included. Same about emotes and its use count. If you can't find user/emote then it did not met the given condition.`,
     },
+    // {
+    //   question: `Will this be open-source?`,
+    //   answer: `Front-end is open-source, but for Back-end currenlty, will not be open-sourced. It still has many bugs and we are still working on it.`,
+    // },
     {
-      question: `Will this be open-source?`,
-      answer: `Front-end is open-source and it can be find here: https://github.com/vopp-top/cs-frontend, Back-end, currenlty, will not be open-sourced. It still has many bugs and we are still working on it.`,
-    },
-    {
-      question: `Can I get access to full database?`,
+      question: `Can I get full database access?`,
       answer: `Yes. If you have good reason then I can share it. Contact with me here: animekkk@protonmail.com`,
     },
   ];
@@ -86,7 +86,7 @@ const Item = styled.div`
   flex-direction: column;
   padding: 0 2rem;
   cursor: pointer;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.subHover};
 `;
 
 const Top = styled.div`
