@@ -72,7 +72,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         // @ts-ignore
         Cell: ({ value }) => {
           if (!value) return 0;
-          return parseFloat(value.toFixed(1));
+          return value.toFixed(1);
         },
       },
       {
@@ -81,7 +81,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         // @ts-ignore
         Cell: ({ value }) => {
           if (!value) return 0;
-          return parseFloat(value.toFixed(1));
+          return value.toFixed(1);
         },
       },
       {
@@ -90,7 +90,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         id: "count",
         // @ts-ignore
         Cell: ({ value }) => {
-          return parseFloat(value.toLocaleString("en-US"));
+          return value.toLocaleString("en-US");
         },
       },
       {
