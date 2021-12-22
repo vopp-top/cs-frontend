@@ -15,16 +15,14 @@ import {
   useTable,
 } from "react-table";
 import styled from "styled-components";
-import { month } from "../../constants/currentMonth";
 import {
-  Pagination,
-  PagBtns,
   PagBtn,
+  PagBtns,
   PageInput,
+  Pagination,
 } from "../../styles/PaginationStyles";
 import { Streamer } from "../../types/types";
 import Avatar from "../Avatar";
-import Button from "../Button";
 import Icon from "../Icon";
 import { GlobalFilter } from "../Leaderboard/Streamers/GlobalFilter";
 import MonthSelection from "../Leaderboard/Streamers/MonthSelection";
@@ -74,7 +72,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         // @ts-ignore
         Cell: ({ value }) => {
           if (!value) return 0;
-          return value.toFixed(1);
+          return parseFloat(value.toFixed(1));
         },
       },
       {
@@ -83,7 +81,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         // @ts-ignore
         Cell: ({ value }) => {
           if (!value) return 0;
-          return value.toFixed(1);
+          return parseFloat(value.toFixed(1));
         },
       },
       {
@@ -92,7 +90,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         id: "count",
         // @ts-ignore
         Cell: ({ value }) => {
-          return value.toLocaleString("en-US");
+          return parseFloat(value.toLocaleString("en-US"));
         },
       },
       {
@@ -205,10 +203,11 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         <Table {...getTableProps()}>
           <col span={1} className="wide" />
           <TableHead>
-            {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
+            {headerGroups.map((headerGroup, i) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()} key={i}>
+                {headerGroup.headers.map((column: any, i) => (
                   <TableHeader
+                    key={i}
                     colSpan={visibleColumns.length}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     {...column.getHeaderProps({ className: column.className })}
@@ -230,11 +229,11 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {page.map((row) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
-                <TableRow {...row.getRowProps()}>
-                  {row.cells.map((cell: any) => {
+                <TableRow {...row.getRowProps()} key={i}>
+                  {row.cells.map((cell: any, i) => {
                     return (
                       <TableData
                         {...cell.getCellProps({
@@ -243,6 +242,7 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
                         {...cell.getCellProps({
                           className: cell.column.isSorted ? "active" : "",
                         })}
+                        key={i}
                       >
                         {cell.render("Cell")}
                       </TableData>

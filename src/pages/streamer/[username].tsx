@@ -53,12 +53,20 @@ const Profile: NextPage<Props> = ({ data }) => {
       <HeadingContainer>
         <Heading textColor={"main"}>{data.name} </Heading>
         <Info>
-          <a target={"_blank"} href={`https://www.twitch.tv/${data.name}`}>
+          <a
+            target={"_blank"}
+            rel="noreferrer"
+            href={`https://www.twitch.tv/${data.name}`}
+          >
             <Avatar url={data.avatar} size={160} />
           </a>
           <Socials>
             <Icon mr={2} as={FaTwitch} size={18} textColor={"main"} />
-            <a target="_blank" href={`https://www.twitch.tv/${data.name}`}>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.twitch.tv/${data.name}`}
+            >
               <Text fontSize={"sm"} textColor={"white"}>
                 twitch.tv/{data.name}
               </Text>

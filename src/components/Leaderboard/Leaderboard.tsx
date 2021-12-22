@@ -157,9 +157,9 @@ const Leaderboard: React.FC<ILeaderboard> = ({
       <Wrap>
         <Table {...getTableProps()}>
           <TableHead>
-            {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
+            {headerGroups.map((headerGroup, i) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()} key={i}>
+                {headerGroup.headers.map((column: any, i) => (
                   <TableHeader
                     {...column.getHeaderProps({
                       className: column.collapse ? "collapse" : "",
@@ -172,6 +172,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
                         width: column.width,
                       },
                     })}
+                    key={i}
                   >
                     {column.render("Header")}
                   </TableHeader>
@@ -180,11 +181,11 @@ const Leaderboard: React.FC<ILeaderboard> = ({
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {page.map((row) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
-                <TableRow {...row.getRowProps()}>
-                  {row.cells.map((cell: any) => {
+                <TableRow {...row.getRowProps()} key={i}>
+                  {row.cells.map((cell: any, i) => {
                     return (
                       <TableData
                         {...cell.getCellProps({
@@ -198,6 +199,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
                             width: cell.column.width,
                           },
                         })}
+                        key={i}
                       >
                         {cell.render("Cell")}
                       </TableData>

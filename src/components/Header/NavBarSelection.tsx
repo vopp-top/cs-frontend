@@ -30,8 +30,9 @@ const NavBarSelection: React.FC<Props> = () => {
         </Button>
         {active && (
           <Content>
-            {options.map((option) => (
+            {options.map((option, i) => (
               <Item
+                key={i}
                 onClick={() => {
                   const split = option.toLowerCase().split(" ");
                   router.push(`/leaderboards/${split[1]}/${month()}`);

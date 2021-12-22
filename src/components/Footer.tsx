@@ -12,7 +12,11 @@ interface Props {}
 const Footer: React.FC<Props> = () => {
   return (
     <Wrapper>
-      <a target={"_blank"} href={"https://github.com/vopp-top"}>
+      <a
+        target={"_blank"}
+        rel="noreferrer"
+        href={"https://github.com/vopp-top"}
+      >
         <Box>
           <Icon as={FaGithub} mr={2} />
           GitHub

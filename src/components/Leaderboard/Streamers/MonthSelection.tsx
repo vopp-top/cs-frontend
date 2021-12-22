@@ -33,8 +33,9 @@ const MonthSelection: React.FC<Props> = ({ type }) => {
         </Button>
         {active && (
           <Content>
-            {options.map((option) => (
+            {options.map((option, i) => (
               <Item
+                key={i}
                 onClick={() => {
                   const split = option.toLowerCase().split(" ");
                   const url = split[0] + split[1].slice(-2);

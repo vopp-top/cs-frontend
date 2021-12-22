@@ -96,7 +96,6 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
         columns={columns}
         fetchData={fetchData}
         pageCount={pageCount}
-        loading={loading}
         pagination={true}
       />
     </>

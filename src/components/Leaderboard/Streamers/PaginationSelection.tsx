@@ -26,8 +26,9 @@ const PaginationSelection: React.FC<Props> = ({ pageSize, setPageSize }) => {
       </Button>
       {active && (
         <Content>
-          {pags.map((val) => (
+          {pags.map((val, i) => (
             <Item
+              key={i}
               onClick={() => {
                 setPageSize(Number(val));
                 setActive(false);
