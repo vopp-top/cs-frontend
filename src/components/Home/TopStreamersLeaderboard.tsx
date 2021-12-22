@@ -271,12 +271,23 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
             <PagBtn onClick={() => previousPage()} disabled={!canPreviousPage}>
               <Icon as={FaAngleLeft} />
             </PagBtn>
-            <PageInput
+            {/* <PageInput
               placeholder="..."
               type="number"
               min={1}
               max={pageOptions.length}
               defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            /> */}
+            <PageInput
+              placeholder="..."
+              type="number"
+              min={1}
+              max={pageOptions.length}
+              value={pageIndex + 1}
               onChange={(e) => {
                 const page = e.target.value ? Number(e.target.value) - 1 : 0;
                 gotoPage(page);
