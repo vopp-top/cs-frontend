@@ -313,7 +313,8 @@ const MinWrapper = styled.div<{ pageSize: number }>`
 `;
 
 const Controllers = styled.div`
-  margin: 1.5rem 0;
+  /* margin: 1.5rem 0; */
+  margin-top: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

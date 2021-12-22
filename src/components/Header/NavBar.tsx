@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FaCaretDown } from "react-icons/fa";
 import styled from "styled-components";
@@ -12,10 +13,10 @@ interface Props {}
 const NavBar: React.FC<Props> = () => {
   return (
     <Wrapper>
-      <Box>FAQ</Box>
-      {/* <Box> */}
+      <Link href={"/faq"}>
+        <Box>FAQ</Box>
+      </Link>
       <NavBarSelection />
-      {/* </Box> */}
     </Wrapper>
   );
 };

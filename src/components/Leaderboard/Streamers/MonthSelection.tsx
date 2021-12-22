@@ -14,7 +14,7 @@ interface Props {
 // Component ---------------------------------------------------------------------
 const MonthSelection: React.FC<Props> = ({ type }) => {
   const router = Router;
-  const options = ["November 2021", "October 2021"];
+  const options = ["November 2021"];
   const [active, setActive] = useState(false);
 
   return (
@@ -58,7 +58,7 @@ export default MonthSelection;
 
 const Dropdown = styled.div`
   z-index: 999;
-  width: 300px;
+  width: 200px;
   background-color: #121212;
   border-radius: ${({ theme }) => theme.rounded.md};
   font-size: ${({ theme }) => theme.fontSizes.sm};

@@ -51,7 +51,10 @@ const Home: NextPage<Props> = ({ data }) => {
           Full Leaderboard
         </Button>
       </Link>
-      {/* <FrequentlyAskedQuestions /> */}
+      <Heading mt={"50px"} mb={"25px"}>
+        Frequently asked Questions
+      </Heading>
+      <FrequentlyAskedQuestions />
     </Wrapper>
   );
 };

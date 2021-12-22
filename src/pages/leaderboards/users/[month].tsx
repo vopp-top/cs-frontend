@@ -62,7 +62,6 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
     setLoading(true);
 
     if (fetchId === fetchIdRef.current) {
-      console.log("hello");
       try {
         const res = await fetch(
           `https://capi.vopp.top/users/page/${pageIndex}?name=${query || ""}`

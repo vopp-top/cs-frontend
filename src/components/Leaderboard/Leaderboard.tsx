@@ -54,6 +54,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
 }) => {
   const [query, setQuery] = useState<undefined | string>(undefined);
   const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     getTableProps,
@@ -88,6 +89,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
   useEffect(() => {
     if (!fetchData) return;
     fetchData({ pageIndex, query, setErr });
+    setLoading(false);
   }, [fetchData, pageIndex, query]);
 
   return (
@@ -102,6 +104,8 @@ const Leaderboard: React.FC<ILeaderboard> = ({
           <Controllers>
             <SearchUser
               // gotoPage={gotoPage}
+              loading={loading}
+              setLoading={setLoading}
               type={searchType!}
               setErr={setErr}
               err={err}

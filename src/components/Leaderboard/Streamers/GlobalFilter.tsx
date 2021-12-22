@@ -56,10 +56,11 @@ const Wrapper = styled.div`
 `;
 
 const SearchBox = styled.input`
-  padding: 0 1.2rem;
+  padding: 0 1rem;
   height: 100%;
   width: 300px;
   background-color: ${({ theme }) => theme.colors.subHover};
   border-radius: ${({ theme }) => theme.rounded.md};
   font-size: ${({ theme }) => theme.fontSizes.md};
+  border: 2px solid transparent;
 `;

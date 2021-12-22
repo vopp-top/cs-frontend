@@ -14,7 +14,6 @@ interface Props {
 
 // Component ---------------------------------------------------------------------
 const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
-  console.log(count);
   const [data, setData] = React.useState(emotes);
   const [loading, setLoading] = React.useState(true);
   const [pageCount, setPageCount] = React.useState(count);
@@ -62,7 +61,6 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
     setLoading(true);
 
     if (fetchId === fetchIdRef.current) {
-      console.log("hello");
       try {
         const res = await fetch(
           `https://capi.vopp.top/emotes/page/${pageIndex}?name=${query || ""}`

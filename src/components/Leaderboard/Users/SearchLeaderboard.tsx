@@ -6,8 +6,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { FaExclamationTriangle, FaSearch } from "react-icons/fa";
+import { FaAdjust, FaExclamationTriangle, FaSearch } from "react-icons/fa";
+import Loader from "react-loader-spinner";
+import { SpinnerCircular } from "spinners-react";
 import styled, { css } from "styled-components";
+import { theme } from "../../../themes/theme";
 import Icon from "../../Icon";
 // Types -------------------------------------------------------------------------
 
@@ -19,14 +22,24 @@ interface Props {
   setQuery: React.Dispatch<React.SetStateAction<string | undefined>>;
   setErr: React.Dispatch<React.SetStateAction<boolean>>;
   err: boolean;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Component ---------------------------------------------------------------------
-const SearchUser: React.FC<Props> = ({ type, setQuery, err, setErr }) => {
+const SearchUser: React.FC<Props> = ({
+  type,
+  setQuery,
+  err,
+  setErr,
+  loading,
+  setLoading,
+}) => {
   const [val, setVal] = useState("");
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setErr(false);
+    setLoading(true);
     setVal(e.target.value.toLowerCase());
   };
 
@@ -42,11 +55,22 @@ const SearchUser: React.FC<Props> = ({ type, setQuery, err, setErr }) => {
         placeholder={`Search for ${type.slice(0, -1)}`}
         onChange={handleChange}
       />
-      <Icon
-        textColor={"inherit"}
-        ml={2}
-        as={err ? FaExclamationTriangle : FaSearch}
-      />
+      <IconCont>
+        {loading ? (
+          <SpinnerCircular
+            size={20}
+            color={theme.colors.text}
+            thickness={250}
+            secondaryColor={theme.colors.sub}
+          />
+        ) : (
+          <Icon
+            textColor={"inherit"}
+            ml={2}
+            as={!err ? FaSearch : FaExclamationTriangle}
+          />
+        )}
+      </IconCont>
     </Wrapper>
   );
 };
@@ -80,4 +104,10 @@ const Input = styled.input`
   width: 100%;
   color: white;
   font-size: ${({ theme }) => theme.fontSizes.md};
+`;
+
+const IconCont = styled.div`
+  svg {
+    display: block;
+  }
 `;
