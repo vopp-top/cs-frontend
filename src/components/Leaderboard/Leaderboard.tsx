@@ -24,7 +24,7 @@ import {
 import Icon from "../Icon";
 import Text from "../Text";
 import MonthSelection from "./Streamers/MonthSelection";
-import SearchUser, { SearchTypes } from "./Users/SearchLeaderboard";
+import SearchLeaderboard, { SearchTypes } from "./Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
 
 export interface ILeaderboard {
@@ -101,13 +101,14 @@ const Leaderboard: React.FC<ILeaderboard> = ({
       {pagination && searchType && (
         <>
           <Controllers>
-            <SearchUser
+            <SearchLeaderboard
               // gotoPage={gotoPage}
               loading={loading}
               setLoading={setLoading}
               type={searchType!}
               setErr={setErr}
               err={err}
+              gotoPage={gotoPage}
               setQuery={setQuery}
             />
             <MonthSelection type={searchType} />

@@ -27,24 +27,28 @@ interface Props {
 }
 
 // Component ---------------------------------------------------------------------
-const SearchUser: React.FC<Props> = ({
+const SearchLeaderboard: React.FC<Props> = ({
   type,
   setQuery,
   err,
   setErr,
   loading,
   setLoading,
+  gotoPage,
 }) => {
   const [val, setVal] = useState("");
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setErr(false);
     setLoading(true);
+    gotoPage(0);
     setVal(e.target.value.toLowerCase());
   };
 
   useEffect(() => {
-    const myInterval = setInterval(() => setQuery(val), 350);
+    const myInterval = setInterval(() => {
+      setQuery(val);
+    }, 350);
     return () => clearInterval(myInterval);
   }, [val]);
 
@@ -75,7 +79,7 @@ const SearchUser: React.FC<Props> = ({
   );
 };
 
-export default SearchUser;
+export default SearchLeaderboard;
 
 // Styled ------------------------------------------------------------------------
 
