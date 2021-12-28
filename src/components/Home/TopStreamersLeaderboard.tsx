@@ -82,7 +82,6 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
         sortType: "basic",
 
         Cell: ({ value }: any) => {
-          console.log(value);
           if (!value) return 0;
           return +value.toFixed(2);
         },
