@@ -3,6 +3,7 @@ import React, { MouseEvent, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import OutsideClickHandler from "react-outside-click-handler";
 import styled from "styled-components";
+import { AVAILABLE_MONTHS } from "../../../constants/currentMonth";
 import Icon from "../../Icon";
 import { SearchTypes } from "../Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
@@ -14,7 +15,6 @@ interface Props {
 // Component ---------------------------------------------------------------------
 const MonthSelection: React.FC<Props> = ({ type }) => {
   const router = Router;
-  const options = ["November 2021"];
   const [active, setActive] = useState(false);
 
   return (
@@ -28,12 +28,12 @@ const MonthSelection: React.FC<Props> = ({ type }) => {
             setActive(!active);
           }}
         >
-          {options[0]}
+          {AVAILABLE_MONTHS[0]}
           <Icon as={FaCaretDown} />
         </Button>
         {active && (
           <Content>
-            {options.map((option, i) => (
+            {AVAILABLE_MONTHS.map((option, i) => (
               <Item
                 key={i}
                 onClick={() => {
@@ -58,7 +58,7 @@ export default MonthSelection;
 // Styled ------------------------------------------------------------------------
 
 const Dropdown = styled.div`
-  z-index: 999;
+  z-index: 1111;
   width: 200px;
   background-color: #121212;
   border-radius: ${({ theme }) => theme.rounded.md};

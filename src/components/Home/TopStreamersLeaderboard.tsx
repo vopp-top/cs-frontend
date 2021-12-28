@@ -69,19 +69,22 @@ const TopStreamersLeaderboard: React.FC<Props> = ({ streamers, controlls }) => {
       {
         Header: "Emotes\nPer Message",
         accessor: "emotes_per_message",
-        // @ts-ignore
-        Cell: ({ value }) => {
+        sortType: "basic",
+
+        Cell: ({ value }: any) => {
           if (!value) return 0;
-          return value.toFixed(1);
+          return +value.toFixed(2);
         },
       },
       {
         Header: "Messages\nPer Second",
         accessor: "messages_per_second",
-        // @ts-ignore
-        Cell: ({ value }) => {
+        sortType: "basic",
+
+        Cell: ({ value }: any) => {
+          console.log(value);
           if (!value) return 0;
-          return value.toFixed(1);
+          return +value.toFixed(2);
         },
       },
       {

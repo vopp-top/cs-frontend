@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import OutsideClickHandler from "react-outside-click-handler";
 import styled from "styled-components";
-import { month } from "../../constants/currentMonth";
+import { MONTH_TLC } from "../../constants/currentMonth";
 import Icon from "../Icon";
 // Types -------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ const NavBarSelection: React.FC<Props> = () => {
                 key={i}
                 onClick={() => {
                   const split = option.toLowerCase().split(" ");
-                  router.push(`/leaderboards/${split[1]}/${month()}`);
+                  router.push(`/leaderboards/${split[1]}/${MONTH_TLC}`);
                   setActive(!active);
                 }}
               >
