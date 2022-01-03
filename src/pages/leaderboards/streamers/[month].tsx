@@ -21,7 +21,7 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
 
   const fetchStreamers = async () => {
     const data = await axios
-      .post(`https://capi.vopp.top/main`, { month })
+      .get(`https://capi.vopp.top/main`, { params: { month } })
       .then((res) => res.data)
       .catch((err) => console.log(err));
 
@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const { month }: any = ctx.params;
 
   const data = await axios
-    .post(`https://capi.vopp.top/main`, { month })
+    .get(`https://capi.vopp.top/main`, { params: { month } })
     .then((res) => res.data)
     .catch((err) => console.log(err));
 

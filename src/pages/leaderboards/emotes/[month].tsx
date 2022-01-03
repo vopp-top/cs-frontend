@@ -60,7 +60,7 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
 
   const fetchEmotes = async () => {
     const res = await axios
-      .post(`https://capi.vopp.top/emotes/page/0`, { month })
+      .get(`https://capi.vopp.top/emotes/page/0`, { params: { month } })
       .then((res) => res.data)
       .catch((err) => console.log(err));
 
@@ -78,9 +78,11 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
       if (fetchId === fetchIdRef.current) {
         try {
           const res = await axios
-            .post(`https://capi.vopp.top/emotes/page/${pageIndex}`, {
-              name: query,
-              offset: pageSize,
+            .get(`https://capi.vopp.top/emotes/page/${pageIndex}`, {
+              params: {
+                name: query,
+                offset: pageSize,
+              },
             })
             .then((res) => {
               if (res.status === 404) throw new Error();
@@ -120,7 +122,7 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const res = await axios
-    .post(`https://capi.vopp.top/emotes/page/0`)
+    .get(`https://capi.vopp.top/emotes/page/0`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 

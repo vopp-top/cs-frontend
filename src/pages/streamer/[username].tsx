@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { username } = ctx.query;
 
   const data = await axios
-    .post(`https://capi.vopp.top/streamer/${username}`)
+    .get(`https://capi.vopp.top/streamer/${username}`)
     .then((res) => res.data)
     .catch((e) => console.log(e));
 

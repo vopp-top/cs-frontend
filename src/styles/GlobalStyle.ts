@@ -36,11 +36,8 @@ button {
 }
 
 a {
-	text-decoration: none;
-
-	&:hover{
-		text-decoration: underline;
-	}
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
 }
 
 ::-webkit-scrollbar {

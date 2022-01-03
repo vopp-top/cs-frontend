@@ -76,7 +76,7 @@ const Home: NextPage<Props> = ({ data }) => {
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const data = await axios
-    .post(`https://capi.vopp.top/main`)
+    .get(`https://capi.vopp.top/main`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 

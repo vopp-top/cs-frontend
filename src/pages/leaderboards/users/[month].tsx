@@ -25,14 +25,16 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
 
   const fetchUsers = async () => {
     const res = await axios
-      .post(`https://capi.vopp.top/users/page/0`, { month })
+      .get(`https://capi.vopp.top/users/page/0`, { params: { month } })
       .then((res) => res.data)
       .catch((err) => console.log(err));
 
+    console.log(res);
     if (res) setData(res.users);
   };
 
   useEffect(() => {
+    if (!month) return;
     fetchUsers();
   }, [month]);
 
@@ -80,9 +82,12 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
       if (fetchId === fetchIdRef.current) {
         try {
           const res = await axios
-            .post(`https://capi.vopp.top/users/page/${pageIndex}`, {
-              name: query,
-              offset: pageSize,
+            .get(`https://capi.vopp.top/users/page/${pageIndex}`, {
+              params: {
+                name: query,
+                offset: pageSize,
+                month,
+              },
             })
             .then((res) => {
               if (res.status === 404) throw new Error();
@@ -128,7 +133,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const { month }: any = ctx.params as { month: string };
 
   const res = await axios
-    .post(`https://capi.vopp.top/users/page/0`, { month })
+    .get(`https://capi.vopp.top/users/page/0`, { params: { month } })
     .then((res) => res.data)
     .catch((err) => console.log(err));
 
