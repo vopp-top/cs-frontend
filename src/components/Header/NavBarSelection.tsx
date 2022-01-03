@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import OutsideClickHandler from "react-outside-click-handler";
 import styled from "styled-components";
-import { MONTH_TLC } from "../../constants/currentMonth";
+import { useMonth } from "../../contexts/global.context";
 import Icon from "../Icon";
 // Types -------------------------------------------------------------------------
 
@@ -11,6 +11,7 @@ interface Props {}
 
 // Component ---------------------------------------------------------------------
 const NavBarSelection: React.FC<Props> = () => {
+  const { month } = useMonth();
   const options = ["Top Users", "Top Streamers", "Top Emotes"];
   const [active, setActive] = useState(false);
 
@@ -35,7 +36,7 @@ const NavBarSelection: React.FC<Props> = () => {
                 key={i}
                 onClick={() => {
                   const split = option.toLowerCase().split(" ");
-                  router.push(`/leaderboards/${split[1]}/${MONTH_TLC}`);
+                  router.push(`/leaderboards/${split[1]}/${month.id}`);
                   setActive(!active);
                 }}
               >

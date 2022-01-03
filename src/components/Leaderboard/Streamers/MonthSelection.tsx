@@ -1,9 +1,12 @@
-import Router from "next/router";
-import React, { MouseEvent, useState } from "react";
+import axios from "axios";
+import { GetServerSideProps, NextPage } from "next";
+import Router, { useRouter } from "next/router";
+import React, { MouseEvent, useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import OutsideClickHandler from "react-outside-click-handler";
 import styled from "styled-components";
 import { AVAILABLE_MONTHS } from "../../../constants/currentMonth";
+import { useMonth } from "../../../contexts/global.context";
 import Icon from "../../Icon";
 import { SearchTypes } from "../Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
@@ -13,42 +16,46 @@ interface Props {
 }
 
 // Component ---------------------------------------------------------------------
-const MonthSelection: React.FC<Props> = ({ type }) => {
+const MonthSelection: NextPage<Props> = ({ type }) => {
+  const { months, month } = useMonth();
+  const { month: d } = useRouter().query;
   const router = Router;
   const [active, setActive] = useState(false);
 
   return (
     <Dropdown>
-      <OutsideClickHandler
-        display="inline"
-        onOutsideClick={() => setActive(false)}
-      >
-        <Button
-          onClick={() => {
-            setActive(!active);
-          }}
+      {months ? (
+        <OutsideClickHandler
+          display="inline"
+          onOutsideClick={() => setActive(false)}
         >
-          {AVAILABLE_MONTHS[0]}
-          <Icon as={FaCaretDown} />
-        </Button>
-        {active && (
-          <Content>
-            {AVAILABLE_MONTHS.map((option, i) => (
-              <Item
-                key={i}
-                onClick={() => {
-                  const split = option.toLowerCase().split(" ");
-                  const url = split[0] + split[1].slice(-2);
-                  router.push(`/leaderboards/${type}/${url}`);
-                  setActive(!active);
-                }}
-              >
-                {option}
-              </Item>
-            ))}
-          </Content>
-        )}
-      </OutsideClickHandler>
+          <Button
+            onClick={() => {
+              setActive(!active);
+            }}
+          >
+            {months.find((m) => m.id === d)?.name || month.name}
+            <Icon as={FaCaretDown} />
+          </Button>
+          {active && (
+            <Content>
+              {months.map((m, i) => (
+                <Item
+                  key={i}
+                  onClick={() => {
+                    router.push(`/leaderboards/${type}/${m.id}`);
+                    setActive(!active);
+                  }}
+                >
+                  {m.name}
+                </Item>
+              ))}
+            </Content>
+          )}
+        </OutsideClickHandler>
+      ) : (
+        <p>loading</p>
+      )}
     </Dropdown>
   );
 };

@@ -19,7 +19,7 @@ interface FaqTypes {
 const FrequentlyAskedQuestions: React.FC<Props> = () => {
   const FaQ: FaqTypes[] = [
     {
-      question: "How we collect data?",
+      question: "How do we collect data?",
       answer: `Data is collected from the most active streamers every month. We analyse chat logs from past broadcasts. If you delete video then we can't analyse it. For now we are not analysing anything real-time.`,
     },
     {

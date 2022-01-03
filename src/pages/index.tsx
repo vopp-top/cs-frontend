@@ -1,3 +1,4 @@
+import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -10,7 +11,7 @@ import TopStreamersLeaderboard from "../components/Home/TopStreamersLeaderboard"
 import TopUsersLeaderboard from "../components/Home/TopUsersLeaderboard";
 import Loader from "../components/Loader";
 import Text from "../components/Text";
-import { MONTH_TLC } from "../constants/currentMonth";
+import { useMonth } from "../contexts/global.context";
 import { IGlobal } from "../types/types";
 import { Leaderboards } from "./streamer/[username]";
 // import Head from "next/head";
@@ -23,6 +24,8 @@ export const server =
   "undefined" === typeof window ? "http://localhost:3000" : "https://vopp.top";
 
 const Home: NextPage<Props> = ({ data }) => {
+  const { month } = useMonth();
+  console.log(month.id);
   if (!data) return <Loader />;
 
   return (
@@ -33,26 +36,35 @@ const Home: NextPage<Props> = ({ data }) => {
       <Heading mb={50}>
         Leaderboard{" "}
         <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
-          /November21
+          /{month.name}
         </Text>
       </Heading>
       <Leaderboards>
         <TopUsersLeaderboard users={data.users} />
         <TopEmotesLeaderboard emotes={data.emotes} />
       </Leaderboards>
-      <Link href={`/leaderboards/streamers/${MONTH_TLC}`}>
-        <Heading mt={50} mb={50}>
-          Top Streamers{" "}
-          <Text as={"span"} fontWeight={500} fontSize={"lg"} textColor={"main"}>
-            /November21
-          </Text>
-        </Heading>
+      <Link href={`/leaderboards/streamers/${month.id}`}>
+        <a>
+          <Heading mt={50} mb={50}>
+            Top Streamers{" "}
+            <Text
+              as={"span"}
+              fontWeight={500}
+              fontSize={"lg"}
+              textColor={"main"}
+            >
+              /{month.name}
+            </Text>
+          </Heading>
+        </a>
       </Link>
       <TopStreamersLeaderboard controlls={false} streamers={data.streamers} />
-      <Link href={`/leaderboards/streamers/${MONTH_TLC}`}>
-        <Button height={50} fontSize={"md"}>
-          Full Leaderboard
-        </Button>
+      <Link href={`/leaderboards/streamers/${month.id}`}>
+        <a>
+          <Button height={50} fontSize={"md"}>
+            Full Leaderboard
+          </Button>
+        </a>
       </Link>
       <Heading mt={"50px"} mb={"25px"}>
         Frequently asked Questions
@@ -63,8 +75,9 @@ const Home: NextPage<Props> = ({ data }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const data = await fetch(`${server}/static/${MONTH_TLC}/global/index.json`)
-    .then((res) => res.json())
+  const data = await axios
+    .post(`https://capi.vopp.top/main`)
+    .then((res) => res.data)
     .catch((err) => console.log(err));
 
   return { props: { data } };

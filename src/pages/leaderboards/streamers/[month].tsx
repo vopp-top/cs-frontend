@@ -1,6 +1,8 @@
+import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { server } from "../..";
 import Heading from "../../../components/Heading";
 import TopStreamersLeaderboard from "../../../components/Home/TopStreamersLeaderboard";
@@ -14,7 +16,23 @@ interface Props {
 
 // Component ---------------------------------------------------------------------
 const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
-  if (!streamers) return <Loader />;
+  const { month } = useRouter().query;
+  const [data, setData] = useState(streamers);
+
+  const fetchStreamers = async () => {
+    const data = await axios
+      .post(`https://capi.vopp.top/main`, { month })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+
+    if (data) setData(data.streamers);
+  };
+
+  useEffect(() => {
+    fetchStreamers();
+  }, [month]);
+
+  if (!data) return <Loader />;
 
   return (
     <>
@@ -23,7 +41,7 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
         <meta name="description" content="Streamers Leaderboard" />
       </Head>
       <Heading mb={0}>Top Streamers</Heading>
-      <TopStreamersLeaderboard controlls={true} streamers={streamers} />
+      <TopStreamersLeaderboard controlls={true} streamers={data} />
     </>
   );
 };
@@ -31,11 +49,12 @@ const TopStreamersLB: React.FC<Props> = ({ streamers }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const { month }: any = ctx.params;
 
-  const data = await fetch(`${server}/static/${month}/global/index.json`)
-    .then((res) => res.json())
+  const data = await axios
+    .post(`https://capi.vopp.top/main`, { month })
+    .then((res) => res.data)
     .catch((err) => console.log(err));
 
-  return { props: { streamers: data?.streamers } };
+  return { props: { streamers: data.streamers } };
 };
 
 export default TopStreamersLB;

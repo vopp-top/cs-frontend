@@ -1,6 +1,8 @@
+import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import React, { useCallback, useMemo } from "react";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import Heading from "../../../components/Heading";
 import Leaderboard from "../../../components/Leaderboard/Leaderboard";
@@ -15,12 +17,24 @@ interface Props {
 
 // Component ---------------------------------------------------------------------
 const TopUsersPage: React.FC<Props> = ({ users, count }) => {
+  const { month } = useRouter().query;
   const [data, setData] = React.useState(users);
   const [loading, setLoading] = React.useState(true);
   const [pageCount, setPageCount] = React.useState(count);
   const fetchIdRef = React.useRef(0);
 
-  // const data = useMemo(() => users, [users]);
+  const fetchUsers = async () => {
+    const res = await axios
+      .post(`https://capi.vopp.top/users/page/0`, { month })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+
+    if (res) setData(res.users);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [month]);
 
   const columns = useMemo(
     () => [
@@ -58,30 +72,38 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
     []
   );
 
-  const fetchData = useCallback(async ({ pageIndex, query, setErr }) => {
-    const fetchId = ++fetchIdRef.current;
-    setLoading(true);
+  const fetchData = useCallback(
+    async ({ pageIndex, query, setErr, pageSize }) => {
+      const fetchId = ++fetchIdRef.current;
+      setLoading(true);
 
-    if (fetchId === fetchIdRef.current) {
-      try {
-        const res = await fetch(
-          `https://capi.vopp.top/users/page/${pageIndex}?name=${query || ""}`
-        ).then((res) => {
-          if (res.status === 404) throw new Error();
-          return res.json();
-        });
+      if (fetchId === fetchIdRef.current) {
+        try {
+          const res = await axios
+            .post(`https://capi.vopp.top/users/page/${pageIndex}`, {
+              name: query,
+              offset: pageSize,
+            })
+            .then((res) => {
+              if (res.status === 404) throw new Error();
+              return res.data;
+            });
 
-        if (res) {
-          setData(res.users);
-          setPageCount(res.maxIndex + 1);
+          if (res) {
+            setData(res.users);
+            setPageCount(res.maxIndex + 1);
+          }
+        } catch {
+          setErr(true);
         }
-      } catch {
-        setErr(true);
       }
-    }
 
-    setLoading(false);
-  }, []);
+      setLoading(false);
+    },
+    []
+  );
+
+  if (!data) return null;
 
   return (
     <>
@@ -102,12 +124,17 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const res = await fetch(`https://capi.vopp.top/users/page/0`)
-    .then((res) => res.json())
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const { month }: any = ctx.params as { month: string };
+
+  const res = await axios
+    .post(`https://capi.vopp.top/users/page/0`, { month })
+    .then((res) => res.data)
     .catch((err) => console.log(err));
 
-  return { props: { users: res.users, count: res.maxIndex + 1 } };
+  return {
+    props: { users: res?.users || null, count: res?.maxIndex + 1 || null },
+  };
 };
 
 export default TopUsersPage;

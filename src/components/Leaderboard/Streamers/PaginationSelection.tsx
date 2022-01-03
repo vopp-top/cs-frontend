@@ -49,7 +49,7 @@ export default PaginationSelection;
 
 const Dropdown = styled.div`
   z-index: 999;
-  background-color: ${({ theme }) => theme.colors.sub};
+  background-color: #141414;
   border-radius: ${({ theme }) => theme.rounded.md};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   height: 100%;
@@ -71,11 +71,11 @@ const Button = styled.div`
 const Content = styled.div`
   padding: 0 1.2rem;
   border-radius: ${({ theme }) => theme.rounded.md};
-  background-color: ${({ theme }) => theme.colors.sub};
+  background-color: #141414;
   margin-top: 6px;
 `;
 
 const Item = styled.div`
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   text-align: center;
 `;

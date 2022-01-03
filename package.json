@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "babel-plugin-styled-components": "^2.0.2",
     "framer-motion": "^5.5.5",
     "match-sorter": "^6.3.1",

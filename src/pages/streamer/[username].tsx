@@ -1,3 +1,4 @@
+import axios from "axios";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Router from "next/router";
@@ -86,13 +87,13 @@ const Profile: NextPage<Props> = ({ data }) => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { username } = ctx.query;
 
-  const data = await fetch(
-    `${server}/static/november21/streamers/${username}/index.json`
-  )
-    .then((res) => res.json())
+  const data = await axios
+    .post(`https://capi.vopp.top/streamer/${username}`)
+    .then((res) => res.data)
     .catch((e) => console.log(e));
 
   if (!data) return { props: { data: null } };
+  console.log(data);
 
   return { props: { data } };
 };

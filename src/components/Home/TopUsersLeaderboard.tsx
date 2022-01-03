@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import { MONTH_TLC } from "../../constants/currentMonth";
+import { useMonth } from "../../contexts/global.context";
 import { User } from "../../types/types";
 import Button from "../Button";
 import Leaderboard from "../Leaderboard/Leaderboard";
@@ -15,6 +15,7 @@ interface Props {
 // Component ---------------------------------------------------------------------
 const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   const data = useMemo(() => users, [users]);
+  const { month } = useMonth();
 
   const columns = useMemo(
     () => [
@@ -55,7 +56,7 @@ const TopUsersLeaderboard: React.FC<Props> = ({ users }) => {
   return (
     <Wrapper>
       <Leaderboard columns={columns} data={data} title="Top Users" />
-      <Link href={`/leaderboards/users/${MONTH_TLC}`}>
+      <Link href={`/leaderboards/users/${month.id}`}>
         <Button height={50} fontSize={"md"}>
           Full Leaderboard
         </Button>

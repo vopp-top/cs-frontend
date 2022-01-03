@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import {
   FaAngleDoubleLeft,
@@ -24,6 +25,7 @@ import {
 import Icon from "../Icon";
 import Text from "../Text";
 import MonthSelection from "./Streamers/MonthSelection";
+import PaginationSelection from "./Streamers/PaginationSelection";
 import SearchLeaderboard, { SearchTypes } from "./Users/SearchLeaderboard";
 // Types -------------------------------------------------------------------------
 
@@ -51,6 +53,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
   pageCount: controlledPageCount,
   searchType,
 }) => {
+  const { month } = useRouter().query;
   const [query, setQuery] = useState<undefined | string>(undefined);
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -69,8 +72,9 @@ const Leaderboard: React.FC<ILeaderboard> = ({
     gotoPage,
     nextPage,
     previousPage,
+    setPageSize,
     // @ts-ignore
-    state: { pageIndex },
+    state: { pageIndex, pageSize },
   } =
     // @ts-ignore
     useTable(
@@ -86,10 +90,14 @@ const Leaderboard: React.FC<ILeaderboard> = ({
     );
 
   useEffect(() => {
+    setPageSize(10);
+  }, [month]);
+
+  useEffect(() => {
     if (!fetchData) return;
-    fetchData({ pageIndex, query, setErr });
+    fetchData({ pageIndex, query, setErr, pageSize });
     setLoading(false);
-  }, [fetchData, pageIndex, query]);
+  }, [fetchData, pageIndex, query, pageSize]);
 
   return (
     <Wrapper>
@@ -151,7 +159,10 @@ const Leaderboard: React.FC<ILeaderboard> = ({
                 <Icon as={FaAngleDoubleRight} />
               </PagBtn>
             </PagBtns>
-            {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
+            <PaginationSelection
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+            />
           </Pagination>
         </>
       )}
@@ -259,7 +270,7 @@ const Leaderboard: React.FC<ILeaderboard> = ({
               <Icon as={FaAngleDoubleRight} />
             </PagBtn>
           </PagBtns>
-          {/* <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} /> */}
+          <PaginationSelection pageSize={pageSize} setPageSize={setPageSize} />
         </Pagination>
       )}
     </Wrapper>
