@@ -82,6 +82,7 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
               params: {
                 name: query,
                 offset: pageSize,
+                month,
               },
             })
             .then((res) => {
@@ -98,7 +99,7 @@ const TopEmotesPage: React.FC<Props> = ({ emotes, count }) => {
         }
       }
     },
-    []
+    [month]
   );
 
   return (

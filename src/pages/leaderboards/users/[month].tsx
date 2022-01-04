@@ -105,7 +105,7 @@ const TopUsersPage: React.FC<Props> = ({ users, count }) => {
 
       setLoading(false);
     },
-    []
+    [month]
   );
 
   if (!data) return null;
